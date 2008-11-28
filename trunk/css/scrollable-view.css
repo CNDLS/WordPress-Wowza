@@ -1,0 +1,125 @@
+
+/* player dimensions */
+a.flowplayer, a.flowplayer img {
+	display:block;				
+	border:0;
+	width:250px;
+	height:180px;
+	margin-right:15px;
+	float:left;
+}
+
+/* play button on top of splash image */
+div.playButton {
+	background:url(../img/play.png) no-repeat;
+	width:45px !important;
+	height:45px;
+	position:relative;
+	top:-115px;
+	left:105px;	
+	margin-bottom:-50px;
+	opacity:0.9;
+}
+
+div.playButton:hover {
+	opacity:1.0;		
+}
+
+/* items */
+div.scrollable {
+	margin-left:-30px;		
+}
+
+div.items {
+	height:180px;		
+	float:left;
+	width:470px;
+	background-color:#efefef;
+	border:1px solid #ddd;
+}
+	
+div.items div {
+	width:470px;	
+}
+
+div.scrollable div {		
+	float:left;
+}
+
+div.scrollable h2 {
+	margin-top:15px;		
+}
+
+div.scrollable p {
+	color:#444;
+	font-size:11px;
+	margin-right:15px;
+}
+
+/* next / prev buttons */
+a.prev, a.next {
+	display:block;
+	width:30px;
+	height:30px;
+	float:left;
+	background-repeat:no-repeat;	
+	margin-top:70px;
+}
+
+a.prev {
+	background:url(../img/button-left.gif);
+	margin-right:10px;
+}
+
+a.prev:hover {
+	background:url(../img/button-left-over.gif);		
+}
+
+a.next {
+	background:url(../img/button-right.gif);
+	margin-left:10px;
+}
+
+a.next:hover {
+	background:url(../img/button-right-over.gif);		
+}
+
+
+/* tabs */ 
+ul.navi { 
+	margin:20px 0 0 0 ;
+	padding:0px;
+	height:1.45em;
+	position:relative;
+	top:10px;
+	left:39px;
+	width:470px; 
+}
+
+ul.navi li {
+	background:url(../img/tab-left.gif) left top no-repeat;
+	padding-left:4px;
+	float:left;
+	margin:0;
+	list-style-type:none;
+}
+
+ul.navi a {
+	background:url(../img/tab-right.gif) right top no-repeat;
+	padding:3px 12px;
+	border-bottom:1px solid #D2D2D2;
+	text-decoration:none;
+	display:block;
+	color:#333;
+	font-size:13px;
+}
+
+ul.navi li.active a, ul.navi a:hover {
+	background-position:100% -150px;
+	border-bottom:1px solid #fff;
+}
+
+ul.navi li.active {
+	background-position:0 -150px;	
+}
+
