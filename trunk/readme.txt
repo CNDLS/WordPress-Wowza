@@ -4,7 +4,7 @@ Donate link: http://www.saiweb.co.uk/wordpress-flowplayer
 Tags: flowplayer, mp4, flv
 Requires at least: 2.6.1
 Tested up to: 2.6.2
-Stable tag: 1.0.0.35
+Stable tag: 1.0.0.36
 
 A Flowplayer plugin for wordpress.
 
@@ -48,4 +48,4 @@ Please use the contact form here: http://www.saiweb.co.uk/contact-me
 
 == Screenshots ==
 
-1. screenshot1.png
+1. screenshots/screenshot1.png
