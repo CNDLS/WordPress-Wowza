@@ -64,6 +64,16 @@ class flowplayer
 	const RELATIVE_PATH = '/wp-content/plugins/word-press-flow-player/';
 	const VIDEO_PATH = '/wp-content/videos/';
 	
+	/**
+	 * Salt function
+	 * @return string salt
+	 */
+	private function _salt() {
+        $salt = substr(md5(uniqid(rand(), true)), 0, 10);
+        $salt = substr($salt, 0, 10);      
+        return $salt;
+	}
+	
 	public function build_min_player($width, $height, $media, $server=false) {
 			$this->count++;
 			
@@ -76,13 +86,19 @@ class flowplayer
 				$html = '<script type="text/javascript" src="'.flowplayer::RELATIVE_PATH.'js/flashembed.min.js"></script>';
 			}
 			
+			/**
+			 * Fix #2 
+			 * @see http://trac.saiweb.co.uk/saiweb/ticket/2
+			 */
+			$hash = md5($media.$this->_salt());
+			
 			$html .= '
 			<script type="text/javascript">
 	 /*
 		use flashembed to place flowplayer into HTML element 
 		whose id is "example" (below this script tag)
 	 */
-	 flashembed("media_'.$this->count.'", 
+	 flashembed("media_'.$hash.'", 
 	
 		/* 
 			first argument supplies standard Flash parameters. See full list:
@@ -121,7 +137,7 @@ class flowplayer
 		}}
 		);
 		</script>
-		<div id="media_'.$this->count.'"></div>
+		<div id="media_'.$hash.'"></div>
 	';
 		return $html;
 	}
