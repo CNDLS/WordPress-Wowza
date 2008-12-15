@@ -81,9 +81,10 @@ class flowplayer
 			
 			if($this->count == 1){
 				/**
-				 * includes once only :-)
+				 * includes once only :-) 
+				 * @todo per post, multi post pages include more than once, possible to use a WP hook to write header?
 				 */
-				$html = '<script type="text/javascript" src="'.flowplayer::RELATIVE_PATH.'js/flashembed.min.js"></script>';
+				$html = '<script type="text/javascript" src="'.flowplayer::RELATIVE_PATH.'flowplayer_3.0.1_gpl/flowplayer.min.js"></script>';
 			}
 			
 			/**
@@ -92,62 +93,10 @@ class flowplayer
 			 */
 			$hash = md5($media.$this->_salt());
 			
-			//old 2.x code
-			$html .= '
-			<script type="text/javascript">
-	 /*
-		use flashembed to place flowplayer into HTML element 
-		whose id is "example" (below this script tag)
-	 */
-	 flashembed("media_'.$hash.'", 
 	
-		/* 
-			first argument supplies standard Flash parameters. See full list:
-			http://kb.adobe.com/selfservice/viewContent.do?externalId=tn_12701
-		*/
-		{
-			src:\''.flowplayer::RELATIVE_PATH .'FlowPlayerDark.swf\',
-			width: '.$width.', 
-			height: '.$height.'
-		},
-		
-		/*
-			second argument is Flowplayer specific configuration. See full list:
-			http://flowplayer.org/player/configuration.html
-		*/
-		{config: {   
-			autoPlay: false,
-			autoBuffering: false,
-			loop: false,
-			controlBarBackgroundColor:\'0x007062\',
-			initialScale: \'scale\',';
-			if(!$server) { 
-				$html .='videoFile: \'http://'.$_SERVER['SERVER_NAME'];
-				if(!file_exists($_SERVER['DOCUMENT_ROOT'].flowplayer::VIDEO_PATH)) {
-					//temp legacy this will be removed in 1.1.0.0 make sure you move your media!
-					$html .= '/videos/';
-				} else {
-					$html .= flowplayer::VIDEO_PATH;
-				}
-				$html .= $media.'\''; 
-			} else {
-				$html 	.= "\n".'videoFile: \''.$media.'\','
-						.  "\n".'streamingServerURL: \''.$server.'\',';
-			}
-			$html .='
-		}}
-		);
-		</script>
-		<div id="media_'.$hash.'"></div>
-	';
-	
-	//new 3.x
-	$html = '<a href="'.flowplayer::VIDEO_PATH.$media.'"  
-    style="display:block;width:425px;height:300px;"  
-    id="saiweb_'.$hash.'"></a>';
-    $html .= '<script language="JavaScript"> 
-    flowplayer("saiweb_"'.$hash.', "/swf/flowplayer-3.0.1.swf"); 
-</script>';
+			//new 3.x
+			$html = '<a href="'.flowplayer::VIDEO_PATH.$media.'" style="display:block;width:425px;height:300px;" id="saiweb_'.$hash.'"></a>';
+    		$html .= '<script language="JavaScript"> flowplayer("saiweb_"'.$hash.', "/swf/flowplayer-3.0.1.swf"); </script>';
 
 		return $html;
 	}
