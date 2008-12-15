@@ -92,6 +92,7 @@ class flowplayer
 			 */
 			$hash = md5($media.$this->_salt());
 			
+			//old 2.x code
 			$html .= '
 			<script type="text/javascript">
 	 /*
@@ -139,6 +140,15 @@ class flowplayer
 		</script>
 		<div id="media_'.$hash.'"></div>
 	';
+	
+	//new 3.x
+	$html = '<a href="'.flowplayer::VIDEO_PATH.$media.'"  
+    style="display:block;width:425px;height:300px;"  
+    id="saiweb_'.$hash.'"></a>';
+    $html .= '<script language="JavaScript"> 
+    flowplayer("saiweb_"'.$hash.', "/swf/flowplayer-3.0.1.swf"); 
+</script>';
+
 		return $html;
 	}
 }
