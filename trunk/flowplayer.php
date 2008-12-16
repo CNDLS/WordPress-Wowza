@@ -51,6 +51,8 @@ function flowplayer_page() {
 	</tr>
 </table>
  </div>';
+ 
+ echo $html;
 }
 
 function flowplayer_content( $content ) {
