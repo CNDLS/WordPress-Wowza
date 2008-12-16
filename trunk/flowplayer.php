@@ -98,16 +98,16 @@ class flowplayer
 	 * @return string salt
 	 */
 	private function _salt() {
-        $salt = substr(md5(uniqid(rand(), true)), 0, 10);
-        $salt = substr($salt, 0, 10);      
+        $salt = substr(md5(uniqid(rand(), true)), 0, 10);    
         return $salt;
 	}
 	
 	public function build_min_player($width, $height, $media, $server=false) {
 			$this->count++;
-			
 			$html = '';
 			
+			//legacy hack!
+			$media = 'http://'.$_SERVER['SERVER_NAME'].'/'.$media;
 			if($this->count == 1){
 				/**
 				 * includes once only :-) 
@@ -122,7 +122,9 @@ class flowplayer
 			 */
 			$hash = md5($media.$this->_salt());
 			
-			//new 3.x
+			/**
+			 * Very basic integration of flowplayer 3.0.1
+			 */
 			$html .= '<a href="'.flowplayer::VIDEO_PATH.$media.'" style="display:block;width:425px;height:300px;" id="saiweb_'.$hash.'"></a>';
     		$html .= '<script language="JavaScript"> flowplayer("saiweb_'.$hash.'", "'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer-3.0.1.swf"); </script>';
 
