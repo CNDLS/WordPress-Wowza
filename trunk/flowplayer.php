@@ -31,8 +31,8 @@ function flowplayer_admin () {
 	 */
 	 if (function_exists('add_submenu_page')) {
 		add_options_page(
-							'Saiweb Flowplayer for Wordpress', 
-							'Saiweb Flowplayer for Wordpress', 
+							'Wordpress Flowplayer', 
+							'Wordpress Flowplayer', 
 							8, 
 							basename(__FILE__), 
 							'flowplayer_page'
@@ -41,7 +41,16 @@ function flowplayer_admin () {
 }
 
 function flowplayer_page() {
-	echo 'Page Goes HERE!';
+	$html = 
+'<div class="wrap">
+ <h2>Saiweb Flowplayer for Wordpress</h2> 
+<table>
+	<tr>
+		<td>AutoPlay</td>
+		<td><select name="autoplay"><option value="true">true</option><option value="false">false</option></select></td>
+	</tr>
+</table>
+ </div>';
 }
 
 function flowplayer_content( $content ) {
