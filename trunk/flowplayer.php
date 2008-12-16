@@ -43,13 +43,14 @@ function flowplayer_admin () {
 function flowplayer_page() {
 	$html = 
 '<div class="wrap">
- <h2>Saiweb Flowplayer for Wordpress</h2> 
-<script language="Javascript">
-funcion wpfp_bgpreview(){
-	colour=document.wpfp_options.bgcolour.value;
-	alert(colour);	
-}
-</script>
+ <h2>Saiweb Flowplayer for Wordpress</h2>
+ <script language="JavaScript">
+ 	$(\'bgcolour\').onchange(
+ 		function(){
+ 			alert($(\'bgcolour\').value);
+ 		}
+ 	);
+ </script>
 <form id="wpfp_options">
 <table>
 	<tr>
@@ -58,7 +59,10 @@ funcion wpfp_bgpreview(){
 	</tr>
 	<tr>
 		<td>BG Colour</td>
-		<td>#<input type="text" size="6" name="bgcolour" id="bgcolour" /></td>
+		<td>
+			#<input type="text" size="6" name="bgcolour" id="bgcolour" />
+			<div id="bgcolour_preview" style="width: 10px; height: 10px;" />	
+		</td>
 	</tr>
 	<tr>
 		<td>AutoPlay</td>
