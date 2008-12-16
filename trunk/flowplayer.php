@@ -90,7 +90,7 @@ class flowplayer
 {
 	private $count = 0;
 	
-	const RELATIVE_PATH = '/wp-content/plugins/word-press-flow-player/';
+	const RELATIVE_PATH = '/wp-content/plugins/word-press-flow-player';
 	const VIDEO_PATH = '/wp-content/videos/';
 	
 	/**
@@ -113,7 +113,7 @@ class flowplayer
 				 * includes once only :-) 
 				 * @todo per post, multi post pages include more than once, possible to use a WP hook to write header?
 				 */
-				$html = '<script type="text/javascript" src="'.flowplayer::RELATIVE_PATH.'flowplayer_3.0.1_gpl/flowplayer.min.js"></script>';
+				$html = '<script type="text/javascript" src="'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer.min.js"></script>';
 			}
 			
 			/**
@@ -124,7 +124,7 @@ class flowplayer
 			
 			//new 3.x
 			$html .= '<a href="'.flowplayer::VIDEO_PATH.$media.'" style="display:block;width:425px;height:300px;" id="saiweb_'.$hash.'"></a>';
-    		$html .= '<script language="JavaScript"> flowplayer("saiweb_'.$hash.'", "/swf/flowplayer-3.0.1.swf"); </script>';
+    		$html .= '<script language="JavaScript"> flowplayer("saiweb_'.$hash.'", "'.flowplayer::RELATIVE_PATH.'/flowplayer-3.0.1.swf"); </script>';
 
 		return $html;
 	}
