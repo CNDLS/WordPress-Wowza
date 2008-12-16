@@ -26,7 +26,22 @@ add_action('admin_menu', 'flowplayer_admin');
  * Admin menu function!
  */
 function flowplayer_admin () {
-	echo 'Admin goes here: ';
+	/**
+	 * We're in the admin page
+	 */
+	 if (function_exists('add_submenu_page')) {
+		add_options_page(
+							'Saiweb Flowplayer for Wordpress', 
+							'Saiweb Flowplayer for Wordpress', 
+							8, 
+							basename(__FILE__), 
+							'flowplayer_page'
+						);
+	}
+}
+
+function flowplayer_page() {
+	echo 'Page Goes HERE!';
 }
 
 function flowplayer_content( $content ) {
