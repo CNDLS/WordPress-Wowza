@@ -45,13 +45,15 @@ function flowplayer_page() {
 '<div class="wrap">
  <h2>Saiweb Flowplayer for Wordpress</h2>
  <script language="JavaScript">
- 	$(\'bgcolour\').onchange(
- 		function(){
- 			alert($(\'bgcolour\').value);
- 		}
- 	);
+ 	 $(document).ready(function() {
+   $("a").click(function() {
+     alert("Hello world!");
+   });
+ });
+
  </script>
 <form id="wpfp_options">
+<a href="#">test</a>
 <table>
 	<tr>
 		<td>AutoPlay</td>
