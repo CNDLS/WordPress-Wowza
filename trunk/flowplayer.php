@@ -106,8 +106,7 @@ class flowplayer
 			$this->count++;
 			$html = '';
 			
-			//legacy hack!
-			$media = 'http://'.$_SERVER['SERVER_NAME'].'/'.$media;
+			
 			if($this->count == 1){
 				/**
 				 * includes once only :-) 
