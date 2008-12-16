@@ -3,8 +3,8 @@ Contributors: d.busby, flowplayer.org
 Donate link: http://www.saiweb.co.uk/wordpress-flowplayer
 Tags: flowplayer, mp4, flv
 Requires at least: 2.6.1
-Tested up to: 2.6.2
-Stable tag: 1.0.0.36
+Tested up to: 2.6.7
+Stable tag: 2.0.0.0
 
 A Flowplayer plugin for wordpress.
 
