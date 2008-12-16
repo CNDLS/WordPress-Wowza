@@ -13,7 +13,21 @@ Author URI: http://saiweb.co.uk
  * @see http://creativecommons.org/licenses/by-nc-sa/2.0/uk
  */
 
+/**
+ * WP Hooks
+ */
 add_filter('the_content', 'flowplayer_content');
+add_action('admin_menu', 'flowplayer_admin');
+/**
+ * END WP Hooks
+ */
+ 
+/**
+ * Admin menu function!
+ */
+function flowplayer_admin () {
+	echo 'Admin goes here: ';
+}
 
 function flowplayer_content( $content ) {
 	$fp = new flowplayer();
