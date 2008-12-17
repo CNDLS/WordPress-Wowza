@@ -16,12 +16,24 @@ Author URI: http://saiweb.co.uk
 /**
  * WP Hooks
  */
+add_filter('wp_head', 'flowplayer_js');
 add_filter('the_content', 'flowplayer_content');
 add_action('admin_menu', 'flowplayer_admin');
+
 /**
  * END WP Hooks
  */
  
+ 
+/**
+ * Javascript head
+ * @var string head contents
+ */
+ function flowplayer_js($content) {
+	$html = '<script type="text/javascript" src="'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer.min.js"></script>';
+ 	$content = $content.$html;
+ 	return $content;
+ }
 /**
  * Admin menu function!
  */
