@@ -130,8 +130,8 @@ function flowplayer_page() {
 	<tr>
 		<td>BG Colour: </td>
 		<td>
-			#<input type="text" size="6" name="bgcolour" id="bgcolour" />
-			<div id="bgcolour_preview" style="width: 10px; height: 10px;" value="'.$fp->conf['bgcolour'].'" />	
+			#<input type="text" size="6" name="bgcolour" id="bgcolour" value="'.$fp->conf['bgcolour'].'" />
+			<div id="bgcolour_preview" style="width: 10px; height: 10px; background:#'.$fp->conf['bgcolour'].'" />	
 		</td>
 	</tr>
 	<tr>
