@@ -122,7 +122,7 @@ function flowplayer_page() {
 		<td>AutoPlay: </td>
 		<td>
 		 	<select name="autoplay">';
-	$html .= bool_select($this->con['autoplay']);	 	
+	$html .= bool_select($fp->con['autoplay']);	 	
 	$html .=' 
 		 	</select>
 		 </td>
@@ -144,7 +144,7 @@ function flowplayer_page() {
 	<tr>
 		<td>Auto Buffering:</td>
 		<td>';
-$html .= $html .= bool_select($this->conf['autobuffer']);
+$html .= $html .= bool_select($fp->conf['autobuffer']);
 $html .='
 		</td>
 	</tr>
@@ -153,7 +153,7 @@ $html .='
 		<td>
 			<select name="opactiy">';
 			
-$html .= opacity_select($this->conf['opacity']);
+$html .= opacity_select($fp->conf['opacity']);
 $html .= '		
 			</select>
 		</td>
