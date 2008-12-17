@@ -44,8 +44,8 @@ function flowplayer_page() {
 	$html = 
 '<div class="wrap">
 <form id="wpfp_options">
-<h2><a href="http://www.saiweb.co.uk">Saiweb</a> Flowplayer for Wordpress</h2>
-<strong>Please set your default player options below</strong>
+<div id="icon-options-general" class="icon32"><h2><a href="http://www.saiweb.co.uk">Saiweb</a> Flowplayer for Wordpress</h2>
+<h3>Please set your default player options below</h3>
 <table>
 	<tr>
 		<td>AutoPlay</td>
@@ -81,7 +81,7 @@ function flowplayer_page() {
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-			<input type="submit" value="Update Options" />
+			<input type="submit" name="Submit" class="button-primary" value="Save Changes" />
 		</td>
 	</tr>
 </table>
