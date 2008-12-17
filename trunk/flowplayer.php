@@ -344,7 +344,22 @@ class flowplayer
 			$html .= '
 <script language="JavaScript">
 $f("saiweb_'.$hash.'", "'.$player.'", { 
-    clip: { 
+    contextMenu: [ 
+ 
+    {\'Worpress Flowplayer\' : function() { 
+        location.href = "http://www.saiweb.co.uk/wordpress-flowplayer";  
+    }}, 
+     
+    // menu separator.  
+    \'-\', 
+     
+    {\'Get Flowplayer Comercial\' : function() { 
+        location.href = "http://flowplayer.org/download/index.html?aff=100";  
+    }} 
+]
+		clip: {
+    	// commercial version requires product key 
+    	key: \''.$this->conf['key'].'\', 
         url: \''.$media.'\', 
         autoPlay: '.$this->conf['autoplay'].',
         autoBuffering: '.$this->conf['autobuffer'].',
