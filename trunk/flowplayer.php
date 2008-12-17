@@ -144,7 +144,7 @@ function flowplayer_page() {
 	<tr>
 		<td>Auto Buffering:</td>
 		<td>';
-$html .= $html .= bool_select($fp->conf['autobuffer']);
+$html .= bool_select($fp->conf['autobuffer']);
 $html .='
 		</td>
 	</tr>
