@@ -59,7 +59,6 @@ function flowplayer_admin () {
  * @return string HTML
  */
 function bool_select($current) {
-	echo 'DEBUG:'.$current;
 	switch($current) {
 		 		case "true":
 		 			$html = '<option selected value="true">true</option><option value="true">false</option>';
@@ -123,7 +122,7 @@ function flowplayer_page() {
 		<td>AutoPlay: </td>
 		<td>
 		 	<select name="autoplay">';
-	$html .= bool_select($fp->con['autoplay']);	 	
+	$html .= bool_select($fp->conf['autoplay']);	 	
 	$html .=' 
 		 	</select>
 		 </td>
