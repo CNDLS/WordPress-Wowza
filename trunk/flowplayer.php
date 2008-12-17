@@ -172,9 +172,12 @@ class flowplayer
 	/**
 	 * Where the config file should be
 	 */
-	protected private $conf_path = '';
+	private $conf_path = '';
 	
-	protected private $conf = array();
+	/**
+	 * config stack
+	 */
+	private $conf = array();
 	
 	/**
 	 * Class construct
