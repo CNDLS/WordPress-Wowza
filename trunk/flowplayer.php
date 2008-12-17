@@ -43,17 +43,9 @@ function flowplayer_admin () {
 function flowplayer_page() {
 	$html = 
 '<div class="wrap">
- <h2>Saiweb Flowplayer for Wordpress</h2>
- <script language="JavaScript">
- 	 $(document).ready(function() {
-   $("a").click(function() {
-     alert("Hello world!");
-   });
- });
-
- </script>
 <form id="wpfp_options">
-<a href="#">test</a>
+<h2><a href="http://www.saiweb.co.uk">Saiweb</a> Flowplayer for Wordpress</h2>
+<strong>Please set your default player options below</strong>
 <table>
 	<tr>
 		<td>AutoPlay</td>
@@ -67,12 +59,30 @@ function flowplayer_page() {
 		</td>
 	</tr>
 	<tr>
-		<td>AutoPlay</td>
-		<td><select name="autoplay"><option value="true">true</option><option value="false">false</option></select></td>
+		<td>autoBuffering</td>
+		<td><select name="autoBuffering"><option value="true">true</option><option value="false">false</option></select></td>
 	</tr>
 	<tr>
-		<td>AutoPlay</td>
-		<td><select name="autoplay"><option value="true">true</option><option value="false">false</option></select></td>
+		<td>Opacity</td>
+		<td>
+			<select name="opactiy">
+				<option value="1.0">1.0</option>
+				<option value="0.9">0.9</option>
+				<option value="0.8">0.8</option>
+				<option value="0.7">0.7</option>
+				<option value="0.6">0.6</option>
+				<option value="0.5">0.5</option>
+				<option value="0.4">0.4</option>
+				<option value="0.3">0.3</option>
+				<option value="0.2">0.2</option>
+				<option value="0.1">0.1</option>		
+			</select>
+		</td>
+	<tr>
+		<td>&nbsp;</td>
+		<td>
+			<input type="submit" value="Update Options" />
+		</td>
 	</tr>
 </table>
 </form>
