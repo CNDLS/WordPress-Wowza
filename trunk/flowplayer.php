@@ -30,9 +30,9 @@ add_action('admin_menu', 'flowplayer_admin');
 
  */
  function flowplayer_js() {
- 	$html = "\n<!--Saiweb Flowplayer For Wordpress Javascript Start -->\n";
+ 	$html = "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript Start -->\n";
 	$html .= '<script type="text/javascript" src="'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer.min.js"></script>';
- 	$html .= "\n<!--Saiweb Flowplayer For Wordpress Javascript END -->\n";
+ 	$html .= "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript END -->\n";
  	echo $html;
  }
 /**
@@ -62,18 +62,25 @@ function flowplayer_page() {
 <h3>Please set your default player options below</h3>
 <table>
 	<tr>
-		<td>AutoPlay</td>
+		<td>AutoPlay: </td>
 		<td><select name="autoplay"><option value="true">true</option><option value="false">false</option></select></td>
 	</tr>
 	<tr>
-		<td>BG Colour</td>
+		<td>BG Colour: </td>
 		<td>
 			#<input type="text" size="6" name="bgcolour" id="bgcolour" />
 			<div id="bgcolour_preview" style="width: 10px; height: 10px;" />	
 		</td>
 	</tr>
 	<tr>
-		<td>autoBuffering</td>
+		<td>Commercial License Key: </td>
+		<td>
+			<input type="text" size="20" name="bgcolour" id="bgcolour" />	
+			(Required for certain features i.e. custom logo)
+		</td>
+	</tr>
+	<tr>
+		<td>Auto Buffering:</td>
 		<td><select name="autoBuffering"><option value="true">true</option><option value="false">false</option></select></td>
 	</tr>
 	<tr>
@@ -100,7 +107,10 @@ function flowplayer_page() {
 	</tr>
 </table>
 </form>
- </div>';
+<h3>Like this plugin?</h3>
+A lot of development time and effort went into Flowplayer and this plugin, you can help support further development by purchasing a comercial license for flowplayer.
+<h3><a href="http://flowplayer.org/download/index.html?aff=100">Get a commercial license now!</a></h3>
+</div>';
  
  echo $html;
 }
@@ -151,9 +161,41 @@ class flowplayer
 {
 	private $count = 0;
 	
+	/**
+	 * Relative URL path
+	 */
 	const RELATIVE_PATH = '/wp-content/plugins/word-press-flow-player';
+	/**
+	 * Where videos _should_ be stored
+	 */
 	const VIDEO_PATH = '/wp-content/videos/';
+	/**
+	 * Where the config file should be
+	 */
+	protected private $conf_path = '';
 	
+	protected private $conf = array();
+	
+	/**
+	 * Class construct
+	 */
+	public function __construct() {
+		//set conf path
+		$this->conf_path = $_SERVER['DOCUMENT_ROOT'].flowplayer::RELATIVE_PATH.'/saiweb_wpfp.conf';
+		echo $this->conf_path;
+	}
+	/**
+	 * get config vars
+	 */
+	private function _get_conf() {
+		
+	}
+	/**
+	 * write config vars
+	 */
+	private function _set_conf() {
+		
+	}
 	/**
 	 * Salt function
 	 * @return string salt
