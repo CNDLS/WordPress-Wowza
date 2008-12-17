@@ -192,25 +192,7 @@ function flowplayer_content( $content ) {
 
 		}
 	
-	} else {
-		$regex = '/\[FLOWPLAYER=([a-z0-9\.\-\&\_\:\/]+)\,([a-z0-9\.\-\&\_]+)\,([0-9]+)\,([0-9]+)\]/';
-		$matches = array();
-		preg_match_all($regex, $content, $matches);
-		if($matches[0][0] != '') {
-			foreach($matches[0] as $key => $data) {
-				/**
-		 		* 0 = string
-		 		* 1 = server
-		 		* 2 = media
-		 		* 3 = width
-			 	* 4 = height
-			 	*/
-				$content = str_replace($matches[0][$key], $fp->build_min_player($matches[3][$key], $matches[4][$key], $matches[2][$key], $matches[1][$key]),$content);
-			}
-		}
-		
-	}
-	
+	} 
 	return $content;
 }
 
@@ -342,6 +324,12 @@ class flowplayer
 	}
 	
 	public function build_min_player($width, $height, $media, $server=false) {
+			
+			//@todo check for http if not set to the following
+			$media = flowplayer::VIDEO_PATH.$media;
+			//set player path
+			$player = flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer-3.0.1.swf';
+			
 			$html = ''; //setup html var
 			/**
 			 * Fix #2 
@@ -353,14 +341,15 @@ class flowplayer
 			 * flowplayer config
 			 */
 			 $html .= '<div id="saiweb_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;"></div>';
-			$html .= '<script language="JavaScript">
-$f("saiweb_'.$hash.'", "'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer-3.0.1.swf", { 
+			$html .= '
+<script language="JavaScript">
+$f("saiweb_'.$hash.'", "'.$player.'", { 
     clip: { 
-        url: \''.flowplayer::VIDEO_PATH.$media.'\', 
+        url: \''.$media.'\', 
         autoPlay: '.$this->conf['autoplay'].',
         autoBuffering: '.$this->conf['autobuffer'].',
         opacity: '.$this->conf['opacity'].',
-		backgroundColor: '.$this->conf['bgcolour'].'
+		backgroundColor: \'#'.$this->conf['bgcolour'].'\'
     }  
 });
 </script>';
