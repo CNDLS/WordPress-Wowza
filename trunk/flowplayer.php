@@ -61,7 +61,7 @@ function flowplayer_admin () {
 function bool_select($current) {
 	switch($current) {
 		 		case "true":
-		 			$html = '<option selected value="true">true</option><option value="true">false</option>';
+		 			$html = '<option selected value="true">true</option><option value="false">false</option>';
 		 		break;
 		 		case "false":
 		 			$html = '<option value="true" >true</option><option selected value="false">false</option>';
@@ -151,7 +151,7 @@ $html .='
 	<tr>
 		<td>Opacity</td>
 		<td>
-			<select name="opactiy">';
+			<select name="opacity">';
 			
 $html .= opacity_select($fp->conf['opacity']);
 $html .= '		
@@ -247,6 +247,8 @@ class flowplayer
 		if(isset($_POST['submit'])) {
 			//write config
 			$this->_set_conf();
+			//debug
+			print_r($_POST);
 		}
 		//load conf data into stack
 		$this->_get_conf();
