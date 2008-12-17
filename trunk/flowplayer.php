@@ -143,10 +143,10 @@ function flowplayer_page() {
 	</tr>
 	<tr>
 		<td>Auto Buffering:</td>
-		<td>';
+		<td><select name="autobuffer">';
 $html .= bool_select($fp->conf['autobuffer']);
 $html .='
-		</td>
+		</select></td>
 	</tr>
 	<tr>
 		<td>Opacity</td>
