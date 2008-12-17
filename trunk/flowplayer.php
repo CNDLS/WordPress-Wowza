@@ -344,7 +344,7 @@ class flowplayer
 
 /**
  * key: \''.$this->conf['key'].'\',
- *$f("saiweb_'.$hash.'", "'.$player.'", {
+ *
 contextMenu: [ 
  
     {\'Worpress Flowplayer\' : function() { 
@@ -361,7 +361,7 @@ contextMenu: [
  */
 			$html .= '
 <script language="JavaScript">
-   
+$f("saiweb_'.$hash.'", "'.$player.'", {   
 		clip: { 
         url: \''.$media.'\', 
         autoPlay: '.$this->conf['autoplay'].',
