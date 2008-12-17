@@ -350,10 +350,22 @@ class flowplayer
 			$hash = md5($media.$this->_salt());
 			
 			/**
-			 * Very basic integration of flowplayer 3.0.1
+			 * flowplayer config
 			 */
-			$html .= '<a href="'.flowplayer::VIDEO_PATH.$media.'" style="display:block;width:425px;height:300px;" id="saiweb_'.$hash.'"></a>';
-    		$html .= '<script language="JavaScript"> flowplayer("saiweb_'.$hash.'", "'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer-3.0.1.swf"); </script>';
+			 $html .= '<a id="saiweb_'.$hash.'"></a>';
+			$html .= '<script language="JavaScript">
+$f("saiweb_'.$hash.'", "'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer-3.0.1.swf", { 
+    clip: { 
+        url: \''.flowplayer::VIDEO_PATH.$media.'\', 
+        autoPlay: '.$this->conf['autoplay'].',
+        autoBuffering: '.$this->conf['autobuffer'].',
+        opacity: '.$this->conf['opacity'].',
+		backgroundColor: '.$this->conf['bgcolour'].'
+    }  
+});
+</script>';
+			
+    		//$html .= '<script language="JavaScript"> flowplayer("saiweb_'.$hash.'", "'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer-3.0.1.swf"); </script>';
 
 		return $html;
 	}
