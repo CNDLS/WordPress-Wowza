@@ -151,18 +151,7 @@ class flowplayer
 	}
 	
 	public function build_min_player($width, $height, $media, $server=false) {
-			$this->count++;
-			$html = '';
-			
-			
-			if($this->count == 1){
-				/**
-				 * includes once only :-) 
-				 * @todo per post, multi post pages include more than once, possible to use a WP hook to write header?
-				 */
-				$html = '<script type="text/javascript" src="'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer.min.js"></script>';
-			}
-			
+			$html = ''; //setup html var
 			/**
 			 * Fix #2 
 			 * @see http://trac.saiweb.co.uk/saiweb/ticket/2
