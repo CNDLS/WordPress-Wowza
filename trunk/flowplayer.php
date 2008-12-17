@@ -352,13 +352,11 @@ class flowplayer
 			/**
 			 * flowplayer config
 			 */
-			 $html .= '<a id="saiweb_'.$hash.'"></a>';
+			 $html .= '<a id="saiweb_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;"></a>';
 			$html .= '<script language="JavaScript">
 $f("saiweb_'.$hash.'", "'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer-3.0.1.swf", { 
     clip: { 
-        url: \''.flowplayer::VIDEO_PATH.$media.'\',
-        width: '.$width.'px,
-        height: '.$height.'px, 
+        url: \''.flowplayer::VIDEO_PATH.$media.'\', 
         autoPlay: '.$this->conf['autoplay'].',
         autoBuffering: '.$this->conf['autobuffer'].',
         opacity: '.$this->conf['opacity'].',
