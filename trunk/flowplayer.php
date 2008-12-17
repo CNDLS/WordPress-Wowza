@@ -185,13 +185,53 @@ class flowplayer
 	public function __construct() {
 		//set conf path
 		$this->conf_path = $_SERVER['DOCUMENT_ROOT'].flowplayer::RELATIVE_PATH.'/saiweb_wpfp.conf';
-		echo $this->conf_path;
+		//load conf data into stack
+		$this->_get_conf();
 	}
 	/**
 	 * get config vars
+	 * 
+	 * @return bool Returns false on failiure, true on success
 	 */
 	private function _get_conf() {
+		//check file exists
+		if(file_exists($this->conf_path)) {
+			//open file for reading
+			$fp = fopen($this->conf_path,'r');
+			//check if failed to open
+			if(!$fp) {
+				error_log('Could not open '.$this->conf_path);
+				$return = false;
+			} else {
+				//read data
+				$data = fread($fp,filesize($this->conf_path));
+				//get each line
+				$tmp = explode("\n",$data);
+				//get each var
+				foreach($tmp as $key => $dat) {
+					//split from var:val
+					$data = explode(':', $dat);
+					//build into conf stack
+					$this->conf[$data[0]] = $data[1];
+					$return = true;
+				}
+			}
+		} else {
+			error_log("Files does not exist: $this->conf_path, attempting to create");
+			//attempt to create file
+			if(touch($this->conf_path)) {
+				//everything is ok!
+				error_log($this->conf_path.' Created');
+				//read the data
+				$this->_get_conf();
+			} else {
+				//failed
+				error_log($this->conf_path.' Creation failed');
+				$return = false;
+			}
+		}
 		
+		return $return;
 	}
 	/**
 	 * write config vars
