@@ -110,7 +110,15 @@ function opacity_select($current) {
 function flowplayer_page() {
 	//initialize the class:
 	$fp = new flowplayer();
-		
+	
+	//if a post event has occured
+	if(isset($_POST['submit'])) {
+		//write config
+		$fp->_set_conf();
+		//repopulate stack
+		$fp->_get_conf();
+	}
+	
 	$html = 
 '<div class="wrap">
 <form id="wpfp_options" method="post">
@@ -160,7 +168,7 @@ $html .= '
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-			<input type="submit" name="Submit" class="button-primary" value="Save Changes" />
+			<input type="submit" name="submit" class="button-primary" value="Save Changes" />
 		</td>
 	</tr>
 </table>
@@ -295,7 +303,36 @@ class flowplayer
 	 * write config vars
 	 */
 	private function _set_conf() {
+		//attempt to open file
+		$fp = fopen($this->conf_path,'rw');
 		
+		if(!$fp) {
+			error_log('Could not open '.$this->conf_path.' for writing');
+		} else {
+			//file is opened for editing!
+			$str = ''; //setup holder var
+			//loop post data
+			foreach($_POST as $key => $data) {
+				//do not want to record the submit value in the config file
+				if($key != "submit") {
+					$str .= $key.':'.$data."\n";
+				}
+			}
+			//comit data
+			$len = strlen($str);
+			//check lenght
+			if($len > 0) { 
+				//attempt write
+				$write = fwrite($fp, $str, $len);
+				//report if failed to error_log
+				if(!$write) {
+					error_log('Could nor write to '.$this->conf_path);
+				}
+			} else {
+				//report 0 length write attempt
+				error_log('Caught attempt to write 0 length to config file, aborted');
+			}
+		}
 	}
 	/**
 	 * Salt function
