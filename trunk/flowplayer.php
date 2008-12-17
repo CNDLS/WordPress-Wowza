@@ -53,50 +53,108 @@ function flowplayer_admin () {
 	}
 }
 
+/**
+ * Output 'selected' bool options based on arg passed
+ * @var string true / false
+ * @return string HTML
+ */
+function bool_select($current) {
+	switch($current) {
+		 		case "true":
+		 			$html = '<option selected value="true">true</option><option value="true">false</option>';
+		 		break;
+		 		case "false":
+		 			$html = '<option value="true" >true</option><option selected value="false">false</option>';
+		 		break;
+		 		default:
+		 			$html = '<option value="true">true</option><option selected value="false">false</option>';
+		 		break;
+		 	}
+		 return $html;
+}
+
+/**
+ * Generate opacity options
+ */
+function opacity_select($current) {
+	//setup possble vals array
+	$vals = array (
+					"1.0" => "",
+					"0.9" => "",
+					"0.8" => "",
+					"0.7" => "",
+					"0.6" => "",
+					"0.5" => "",
+					"0.4" => "",
+					"0.3" => "",
+					"0.2" => "",
+					"0.1" => ""
+					);
+	//set current selected value
+	$vals[$current] = "selected";
+	//set html
+	$html ='	
+				<option '.$vals["1.0"].' value="1.0">1.0</option>
+				<option '.$vals["0.9"].' value="0.9">0.9</option>
+				<option '.$vals["0.8"].' value="0.8">0.8</option>
+				<option '.$vals["0.7"].' value="0.7">0.7</option>
+				<option '.$vals["0.6"].' value="0.6">0.6</option>
+				<option '.$vals["0.5"].' value="0.5">0.5</option>
+				<option '.$vals["0.4"].' value="0.4">0.4</option>
+				<option '.$vals["0.3"].' value="0.3">0.3</option>
+				<option '.$vals["0.2"].' value="0.2">0.2</option>
+				<option '.$vals["0.1"].' value="0.1">0.1</option>
+			'; 
+	return $html;
+}
 function flowplayer_page() {
+	//initialize the class:
+	$fp = new flowplayer();
+		
 	$html = 
 '<div class="wrap">
-<form id="wpfp_options">
+<form id="wpfp_options" method="post">
 <div id="icon-options-general" class="icon32"><br></div>
 <h2><a href="http://www.saiweb.co.uk">Saiweb</a> Flowplayer for Wordpress</h2>
 <h3>Please set your default player options below</h3>
 <table>
 	<tr>
 		<td>AutoPlay: </td>
-		<td><select name="autoplay"><option value="true">true</option><option value="false">false</option></select></td>
+		<td>
+		 	<select name="autoplay">';
+	$html .= bool_select($this->con['autoplay']);	 	
+	$html .=' 
+		 	</select>
+		 </td>
 	</tr>
 	<tr>
 		<td>BG Colour: </td>
 		<td>
 			#<input type="text" size="6" name="bgcolour" id="bgcolour" />
-			<div id="bgcolour_preview" style="width: 10px; height: 10px;" />	
+			<div id="bgcolour_preview" style="width: 10px; height: 10px;" value="'.$fp->conf['bgcolour'].'" />	
 		</td>
 	</tr>
 	<tr>
 		<td>Commercial License Key: </td>
 		<td>
-			<input type="text" size="20" name="bgcolour" id="bgcolour" />	
+			<input type="text" size="20" name="key" id="key" value="'.$fp->conf['key'].'" />	
 			(Required for certain features i.e. custom logo)
 		</td>
 	</tr>
 	<tr>
 		<td>Auto Buffering:</td>
-		<td><select name="autoBuffering"><option value="true">true</option><option value="false">false</option></select></td>
+		<td>';
+$html .= $html .= bool_select($this->conf['autobuffer']);
+$html .='
+		</td>
 	</tr>
 	<tr>
 		<td>Opacity</td>
 		<td>
-			<select name="opactiy">
-				<option value="1.0">1.0</option>
-				<option value="0.9">0.9</option>
-				<option value="0.8">0.8</option>
-				<option value="0.7">0.7</option>
-				<option value="0.6">0.6</option>
-				<option value="0.5">0.5</option>
-				<option value="0.4">0.4</option>
-				<option value="0.3">0.3</option>
-				<option value="0.2">0.2</option>
-				<option value="0.1">0.1</option>		
+			<select name="opactiy">';
+			
+$html .= opacity_select($this->conf['opacity']);
+$html .= '		
 			</select>
 		</td>
 	<tr>
@@ -177,7 +235,7 @@ class flowplayer
 	/**
 	 * config stack
 	 */
-	private $conf = array();
+	public $conf = array();
 	
 	/**
 	 * Class construct
