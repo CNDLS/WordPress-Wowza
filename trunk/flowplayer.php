@@ -111,14 +111,6 @@ function flowplayer_page() {
 	//initialize the class:
 	$fp = new flowplayer();
 	
-	//if a post event has occured
-	if(isset($_POST['submit'])) {
-		//write config
-		$fp->_set_conf();
-		//repopulate stack
-		$fp->_get_conf();
-	}
-	
 	$html = 
 '<div class="wrap">
 <form id="wpfp_options" method="post">
@@ -251,6 +243,11 @@ class flowplayer
 	public function __construct() {
 		//set conf path
 		$this->conf_path = $_SERVER['DOCUMENT_ROOT'].flowplayer::RELATIVE_PATH.'/saiweb_wpfp.conf';
+		//if a post event has occured
+		if(isset($_POST['submit'])) {
+			//write config
+			$this->_set_conf();
+		}
 		//load conf data into stack
 		$this->_get_conf();
 	}
