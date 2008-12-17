@@ -344,6 +344,7 @@ class flowplayer
 			$html .= '
 <script language="JavaScript">
 $f("saiweb_'.$hash.'", "'.$player.'", { 
+    key: \''.$this->conf['key'].'\',
     contextMenu: [ 
  
     {\'Worpress Flowplayer\' : function() { 
@@ -357,9 +358,7 @@ $f("saiweb_'.$hash.'", "'.$player.'", {
         location.href = "http://flowplayer.org/download/index.html?aff=100";  
     }} 
 ]
-		clip: {
-    	// commercial version requires product key 
-    	key: \''.$this->conf['key'].'\', 
+		clip: { 
         url: \''.$media.'\', 
         autoPlay: '.$this->conf['autoplay'].',
         autoBuffering: '.$this->conf['autobuffer'].',
