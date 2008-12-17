@@ -341,11 +341,9 @@ class flowplayer
 			 * flowplayer config
 			 */
 			 $html .= '<div id="saiweb_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;"></div>';
-			$html .= '
-<script language="JavaScript">
-$f("saiweb_'.$hash.'", "'.$player.'", { 
-    key: \''.$this->conf['key'].'\',
-    contextMenu: [ 
+
+/**
+ * contextMenu: [ 
  
     {\'Worpress Flowplayer\' : function() { 
         location.href = "http://www.saiweb.co.uk/wordpress-flowplayer";  
@@ -358,6 +356,13 @@ $f("saiweb_'.$hash.'", "'.$player.'", {
         location.href = "http://flowplayer.org/download/index.html?aff=100";  
     }} 
 ],
+ */
+
+			$html .= '
+<script language="JavaScript">
+$f("saiweb_'.$hash.'", "'.$player.'", { 
+    key: \''.$this->conf['key'].'\',
+   
 		clip: { 
         url: \''.$media.'\', 
         autoPlay: '.$this->conf['autoplay'].',
