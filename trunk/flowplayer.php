@@ -352,7 +352,7 @@ class flowplayer
 			/**
 			 * flowplayer config
 			 */
-			 $html .= '<a id="saiweb_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;"></a>';
+			 $html .= '<div id="saiweb_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;"></div>';
 			$html .= '<script language="JavaScript">
 $f("saiweb_'.$hash.'", "'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer-3.0.1.swf", { 
     clip: { 
