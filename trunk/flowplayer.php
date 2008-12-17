@@ -3,7 +3,7 @@
 Plugin Name: Flowplayer for Wordpress
 Plugin URI: http://saiweb.co.uk/wordpress-flowplayer
 Description: Flowplayer Wordpress Extension GPL Edition
-Version: 2.0.0.67
+Version: 2.0.0.68
 Author: David Busby
 Author URI: http://saiweb.co.uk
 */
@@ -167,6 +167,8 @@ $html .= '
 <h3>Like this plugin?</h3>
 A lot of development time and effort went into Flowplayer and this plugin, you can help support further development by purchasing a comercial license for flowplayer.
 <h3><a href="http://flowplayer.org/download/index.html?aff=100">Get a commercial license now!</a></h3>
+<br /><br />
+<h3><a href="http://trac.saiweb.co.uk/saiweb">Report a Bug</a></h3>
 </div>';
  
  echo $html;
