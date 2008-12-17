@@ -30,9 +30,9 @@ add_action('admin_menu', 'flowplayer_admin');
 
  */
  function flowplayer_js() {
- 	$html = "\n<!--Saiweb Flwoplayer For Wordpress Javascript Start -->\n";
+ 	$html = "\n<!--Saiweb Flowplayer For Wordpress Javascript Start -->\n";
 	$html .= '<script type="text/javascript" src="'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer.min.js"></script>';
- 	$html = "\n<!--Saiweb Flwoplayer For Wordpress Javascript END -->\n";
+ 	$html .= "\n<!--Saiweb Flowplayer For Wordpress Javascript END -->\n";
  	echo $html;
  }
 /**
