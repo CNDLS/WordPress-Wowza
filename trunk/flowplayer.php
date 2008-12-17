@@ -131,7 +131,7 @@ function flowplayer_page() {
 		<td>BG Colour: </td>
 		<td>
 			#<input type="text" size="6" name="bgcolour" id="bgcolour" value="'.$fp->conf['bgcolour'].'" />
-			<div id="bgcolour_preview" style="width: 10px; height: 10px; background:#'.$fp->conf['bgcolour'].'" />	
+			<div id="bgcolour_preview" style="float: right; width: 32px; height: 32px; background:#'.$fp->conf['bgcolour'].'" />	
 		</td>
 	</tr>
 	<tr>
@@ -247,8 +247,6 @@ class flowplayer
 		if(isset($_POST['submit'])) {
 			//write config
 			$this->_set_conf();
-			//debug
-			print_r($_POST);
 		}
 		//load conf data into stack
 		$this->_get_conf();
