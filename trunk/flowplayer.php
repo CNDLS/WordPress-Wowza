@@ -279,6 +279,7 @@ class flowplayer
 					$return = true;
 				}
 			}
+			fclose($fp);
 		} else {
 			error_log("Files does not exist: $this->conf_path, attempting to create");
 			//attempt to create file
@@ -301,7 +302,7 @@ class flowplayer
 	 */
 	private function _set_conf() {
 		//attempt to open file
-		$fp = fopen($this->conf_path,'rw');
+		$fp = fopen($this->conf_path,'w');
 		
 		if(!$fp) {
 			error_log('Could not open '.$this->conf_path.' for writing');
@@ -323,12 +324,13 @@ class flowplayer
 				$write = fwrite($fp, $str, $len);
 				//report if failed to error_log
 				if(!$write) {
-					error_log('Could nor write to '.$this->conf_path);
+					error_log('Could not write to '.$this->conf_path);
 				}
 			} else {
 				//report 0 length write attempt
 				error_log('Caught attempt to write 0 length to config file, aborted');
 			}
+			fclose($fp);
 		}
 	}
 	/**
