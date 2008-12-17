@@ -357,7 +357,7 @@ $f("saiweb_'.$hash.'", "'.$player.'", {
     {\'Get Flowplayer Comercial\' : function() { 
         location.href = "http://flowplayer.org/download/index.html?aff=100";  
     }} 
-]
+],
 		clip: { 
         url: \''.$media.'\', 
         autoPlay: '.$this->conf['autoplay'].',
