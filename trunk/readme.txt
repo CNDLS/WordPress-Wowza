@@ -30,7 +30,7 @@ e.g.
 1. Download plugin and upload all contents to `/wp-content/plugins/`
 2. Create a directory in your webroot for media files `/wp-content/videos/`
 3. Activate the plugin through the 'Plugins' menu in WordPress
-4. Place [FLOWPLAYER=media.flv,600,450] where media.flv is your media file in `/wp-content/videos/` in your blog text.
+4. Place [FLOWPLAYER=media.flv,600,450] where media.flv is your media file in `/wp-content/videos/` in your blog text (As of 2.0.1.0 you can now include media via http i.e. [FLOWPLAYER=http://another-site.com/media.flv,600,450]).
 5. Updates are made available automatically via the wordpress upgrade system, please ensure you read the change log before upgrading.
 6. You can make changes to the default settings by visiting the configuration page i.e. http://your_website_here/wp-admin/options-general.php?page=flowplayer.php
 
