@@ -302,7 +302,7 @@ $html .='
 function flowplayer_content( $content ) {
 	$fp = new flowplayer();
 	
-	$regex = '/\[FLOWPLAYER=([a-z0-9\.\-\&\_]+)\,([0-9]+)\,([0-9]+)\]/';
+	$regex = '/\[FLOWPLAYER=([a-z0-9\:\.\-\&\_\/]+)\,([0-9]+)\,([0-9]+)\]/i';
 	$matches = array();
 
 	preg_match_all($regex, $content, $matches);
@@ -453,8 +453,9 @@ class flowplayer
 	
 	public function build_min_player($width, $height, $media, $server=false) {
 			
-			//@todo check for http if not set to the following
-			$media = flowplayer::VIDEO_PATH.$media;
+			if(strpos($media,'http://') === false) {
+				$media = flowplayer::VIDEO_PATH.$media;
+			}
 			//set player path
 			$player = flowplayer::RELATIVE_PATH.PLAYER;
 			
@@ -510,8 +511,7 @@ $f("saiweb_'.$hash.'", "'.$player.'", {
 	clip: { 
         url: \''.$media.'\', 
         autoPlay: '.$this->conf['autoplay'].',
-        autoBuffering: '.$this->conf['autobuffer'].',
-		backgroundColor: \'#'.$this->conf['bgcolour'].'\'
+        autoBuffering: '.$this->conf['autobuffer'].'
     }  
 });
 </script>';
