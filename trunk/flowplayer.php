@@ -3,7 +3,7 @@
 Plugin Name: Flowplayer for Wordpress
 Plugin URI: http://saiweb.co.uk/wordpress-flowplayer
 Description: Flowplayer Wordpress Extension GPL Edition
-Version: 2.0.0.68
+Version: 2.0.1.0
 Author: David Busby
 Author URI: http://saiweb.co.uk
 */
@@ -14,9 +14,13 @@ Author URI: http://saiweb.co.uk
  */
 
 /**
+ * defines
+ */
+ define("PLAYER",'/flowplayer_3.0.1_gpl/flowplayer-3.0.1.swf');
+/**
  * WP Hooks
  */
-add_action('wp_head', 'flowplayer_js');
+add_action('wp_head', 'flowplayer_head');
 add_filter('the_content', 'flowplayer_content');
 add_action('admin_menu', 'flowplayer_admin');
 
@@ -26,10 +30,9 @@ add_action('admin_menu', 'flowplayer_admin');
  
  
 /**
- * Javascript head
-
+ * Flowplayer <head></head> additions (js, css etc).
  */
- function flowplayer_js() {
+ function flowplayer_head() {
  	$html = "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript Start -->\n";
 	$html .= '<script type="text/javascript" src="'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer.min.js"></script>';
  	$html .= "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript END -->\n";
@@ -51,8 +54,30 @@ function flowplayer_admin () {
 							'flowplayer_page'
 						);
 	}
+	/**
+	 * Add javascript
+	 */
 }
 
+/**
+ * Admin menu <head></head> additions
+ */
+ function flowplayer_admin_head() {
+ 	/**
+ 	 * Standard JS
+ 	 */
+ 	flowplayer_head();
+ 	/**
+ 	 * Admin specific
+ 	 */
+ 	$html = "\n<!-- Saiweb.co.uk Flowplayer For Wordpress ADMIN Javascript Start -->\n";
+ 	$html .= '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>';	
+ 	$html .= "\n".'<script type="text/javascript" src="'.flowplayer::RELATIVE_PATH.'/js/farbtastic/farbtastic.js"></script>';
+ 	$html .= "\n".'<link rel="stylesheet" href="'.flowplayer::RELATIVE_PATH.'/js/farbtastic/farbtastic.css" type="text/css" />';
+ 	$html .= "\n<!-- Saiweb.co.uk Flowplayer For Wordpress ADMIN Javascript END -->\n";
+ 	echo $html;
+ }
+ 
 /**
  * Output 'selected' bool options based on arg passed
  * @var string true / false
@@ -107,15 +132,127 @@ function opacity_select($current) {
 			'; 
 	return $html;
 }
+/**
+ * build hidden inputs
+ */
+function flowplayer_colours($fp) {
+$html ='<ul>
+		<li><input disabled type="radio" name="tgt" value="backgroundColor" checked /> controlbar</li>		
+		<!--<li><input disabled type="radio" name="tgt" value="canvas" /> canvas</li> Not stable yet-->
+		<li><input disabled type="radio" name="tgt" value="sliderColor" /> sliders</li>
+		<li><input disabled type="radio" name="tgt" value="buttonColor" /> buttons</li>
+		<li><input disabled type="radio" name="tgt" value="buttonOverColor" /> mouseover</li>
+		<li><input disabled type="radio" name="tgt" value="durationColor" /> total time</li>
+		<li><input disabled type="radio" name="tgt" value="timeColor" /> time</li>
+		<li><input disabled type="radio" name="tgt" value="progressColor" /> progress</li>
+		<li><input disabled type="radio" name="tgt" value="bufferColor" /> buffer</li>
+		</ul>
+';
+
+$html .= 
+'
+<input type="hidden" name="backgroundColor" value="'.$fp->conf['backgroundColor'].'" />		
+<input type="hidden" name="canvas" value="'.$fp->conf['canvas'].'" />
+<input type="hidden" name="sliderColor" value="'.$fp->conf['sliderColor'].'" />
+<input type="hidden" name="buttonColor" value="'.$fp->conf['buttonColor'].'" />
+<input type="hidden" name="buttonOverColor" value="'.$fp->conf['buttonOverColor'].'" />
+<input type="hidden" name="durationColor" value="'.$fp->conf['durationColor'].'" />
+<input type="hidden" name="timeColor" value="'.$fp->conf['timeColor'].'" />
+<input type="hidden" name="progressColor" value="'.$fp->conf['progressColor'].'" />
+<input type="hidden" name="bufferColor" value="'.$fp->conf['bufferColor'].'" />
+';
+return $html;
+}
+/**
+ * Admin config menu
+ */
 function flowplayer_page() {
 	//initialize the class:
 	$fp = new flowplayer();
-	
+//setup required files
+flowplayer_admin_head();	
 	$html = 
-'<div class="wrap">
+'
+<script language="Javascript" type="text/javascript">
+	$(document).ready(function() {
+		//load player
+		$f("player", "'.flowplayer::RELATIVE_PATH.PLAYER.'", {
+				plugins: {
+  					 controls: {    					
+      					buttonOverColor: \''.$fp->conf['buttonOverColor'].'\',
+      					sliderColor: \''.$fp->conf['sliderColor'].'\',
+      					bufferColor: \''.$fp->conf['bufferColor'].'\',
+      					sliderGradient: \'none\',
+      					progressGradient: \'medium\',
+      					durationColor: \''.$fp->conf['durationColor'].'\',
+      					progressColor: \''.$fp->conf['progressColor'].'\',
+      					backgroundColor: \''.$fp->conf['backgroundColor'].'\',
+      					timeColor: \''.$fp->conf['timeColor'].'\',
+      					buttonColor: \''.$fp->conf['buttonColor'].'\',
+      					backgroundGradient: \'none\',
+      					bufferGradient: \'none\',
+   						opacity:1.0
+   						}
+				},
+				clip: {
+					url:\'http://blip.tv/file/get/N8inpasadena-Flowers457.flv\',
+					autoPlay: '.$fp->conf['autoplay'].',
+        			autoBuffering: '.$fp->conf['autobuffer'].',
+				},
+				screen: {
+					top:\'10px\',
+					left:20,
+					width:300,
+					height:200
+				},
+		
+				logo: {
+					width:200
+				},
+		
+				canvas: {
+					backgroundColor:\'#333333\'
+				},
+				onLoad: function() {
+					$(":input[name=tgt]").removeAttr("disabled");		
+				},
+				onUnload: function() {
+					$(":input[name=tgt]").attr("disabled", true);		
+				}
+			});
+		//colour picker call back to api and hidden vars		
+		$(\'#colourpicker\').farbtastic(function(color){
+			var tgt = $(":input[name=tgt]:checked").val();
+			//set to hidden input
+			$(":input[name="+tgt+"]").val(color);
+			var player = $f("player");
+				
+			if (player.isLoaded()) {						
+
+			// adjust canvas bgcolor. uses undocumented API call. not stabilized yer
+			if (tgt == \'canvas\') {					
+				player._api().fp_css("canvas", {backgroundColor:color});
+				
+			// adjust controlbar coloring
+			} else {
+	
+				window.canvasColor = color;
+				player.getControls().css(tgt, color);	
+			}			
+			
+		} else {
+			player.load();	
+		}			
+		});
+	});
+</script>
+<div class="wrap">
 <form id="wpfp_options" method="post">
 <div id="icon-options-general" class="icon32"><br></div>
 <h2><a href="http://www.saiweb.co.uk">Saiweb</a> Flowplayer for Wordpress</h2>
+<h3>Like this plugin?</h3>
+A lot of development time and effort went into Flowplayer and this plugin, you can help support further development by purchasing a comercial license for flowplayer.
+<h3><a href="http://flowplayer.org/download/index.html?aff=100">Get a commercial license now!</a></h3>
 <h3>Please set your default player options below</h3>
 <table>
 	<tr>
@@ -126,12 +263,6 @@ function flowplayer_page() {
 	$html .=' 
 		 	</select>
 		 </td>
-	</tr>
-	<tr>
-		<td>BG Colour: </td>
-		<td>
-			#<input type="text" size="6" name="bgcolour" id="bgcolour" value="'.$fp->conf['bgcolour'].'" style="background:#'.$fp->conf['bgcolour'].'" />
-		</td>
 	</tr>
 	<tr>
 		<td>Commercial License Key: </td>
@@ -148,13 +279,9 @@ $html .='
 		</select></td>
 	</tr>
 	<tr>
-		<td>Opacity</td>
+		<td><div id="colourpicker"></div></td>
 		<td>
-			<select name="opacity">';
-			
-$html .= opacity_select($fp->conf['opacity']);
-$html .= '		
-			</select>
+			'.flowplayer_colours($fp).'
 		</td>
 	<tr>
 		<td>&nbsp;</td>
@@ -164,9 +291,7 @@ $html .= '
 	</tr>
 </table>
 </form>
-<h3>Like this plugin?</h3>
-A lot of development time and effort went into Flowplayer and this plugin, you can help support further development by purchasing a comercial license for flowplayer.
-<h3><a href="http://flowplayer.org/download/index.html?aff=100">Get a commercial license now!</a></h3>
+<div id="player" style="width:300px;height:200px;"></div>
 <br /><br />
 <h3><a href="http://trac.saiweb.co.uk/saiweb">Report a Bug</a></h3>
 </div>';
@@ -294,6 +419,7 @@ class flowplayer
 			$str = ''; //setup holder var
 			//loop post data
 			foreach($_POST as $key => $data) {
+
 				//do not want to record the submit value in the config file
 				if($key != "submit") {
 					$str .= $key.':'.$data."\n";
@@ -330,7 +456,7 @@ class flowplayer
 			//@todo check for http if not set to the following
 			$media = flowplayer::VIDEO_PATH.$media;
 			//set player path
-			$player = flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer-3.0.1.swf';
+			$player = flowplayer::RELATIVE_PATH.PLAYER;
 			
 			$html = ''; //setup html var
 			/**
@@ -364,11 +490,27 @@ contextMenu: [
 			$html .= '
 <script language="JavaScript">
 $f("saiweb_'.$hash.'", "'.$player.'", {   
-		clip: { 
+	plugins: {
+  					 controls: {    					
+      					buttonOverColor: \''.$this->conf['buttonOverColor'].'\',
+      					sliderColor: \''.$this->conf['sliderColor'].'\',
+      					bufferColor: \''.$this->conf['bufferColor'].'\',
+      					sliderGradient: \'none\',
+      					progressGradient: \'medium\',
+      					durationColor: \''.$this->conf['durationColor'].'\',
+      					progressColor: \''.$this->conf['progressColor'].'\',
+      					backgroundColor: \''.$this->conf['backgroundColor'].'\',
+      					timeColor: \''.$this->conf['timeColor'].'\',
+      					buttonColor: \''.$this->conf['buttonColor'].'\',
+      					backgroundGradient: \'none\',
+      					bufferGradient: \'none\',
+   						opacity:1.0
+   						}
+				},
+	clip: { 
         url: \''.$media.'\', 
         autoPlay: '.$this->conf['autoplay'].',
         autoBuffering: '.$this->conf['autobuffer'].',
-        opacity: '.$this->conf['opacity'].',
 		backgroundColor: \'#'.$this->conf['bgcolour'].'\'
     }  
 });
