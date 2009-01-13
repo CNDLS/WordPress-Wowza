@@ -350,7 +350,7 @@ class flowplayer
 	 */
 	public function __construct() {
 		//set conf path
-		$this->conf_path = realpath(dirname(__FILE__)).flowplayer::RELATIVE_PATH.'/saiweb_wpfp.conf';
+		$this->conf_path = realpath(dirname(__FILE__)).'/saiweb_wpfp.conf';
 		//if a post event has occured
 		if(isset($_POST['submit'])) {
 			//write config
