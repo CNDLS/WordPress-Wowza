@@ -4,7 +4,7 @@ Donate link: http://www.saiweb.co.uk/wordpress-flowplayer
 Tags: flowplayer, mp4, flv, h264, libx264, HD, streaming, flow, player
 Requires at least: 2.7
 Tested up to: 2.7
-Stable tag: 2.0.1.0
+Stable tag: 2.0.1.1
 
 A Flowplayer plugin for wordpress.
 
