@@ -3,7 +3,7 @@
 Plugin Name: Flowplayer for Wordpress
 Plugin URI: http://saiweb.co.uk/wordpress-flowplayer
 Description: Flowplayer Wordpress Extension GPL Edition
-Version: 2.0.1.1
+Version: 2.0.1.2
 Author: David Busby
 Author URI: http://saiweb.co.uk
 */
@@ -196,8 +196,8 @@ flowplayer_admin_head();
 				},
 				clip: {
 					url:\'http://blip.tv/file/get/N8inpasadena-Flowers457.flv\',
-					autoPlay: '.$fp->conf['autoplay'].',
-        			autoBuffering: '.$fp->conf['autobuffer'].',
+					autoPlay: '.(isset($fp->conf['autoplay'])?$fp->conf['autoplay']:'false').',
+       				autoBuffering: '.(isset($fp->conf['autobuffer'])?$fp->conf['autobuffer']:'false').'
 				},
 				screen: {
 					top:\'10px\',
@@ -272,6 +272,13 @@ A lot of development time and effort went into Flowplayer and this plugin, you c
 		</td>
 	</tr>
 	<tr>
+		<td>Relative Path: </td>
+		<td>
+			<input type="text" size="20" name="rpath" id="rpath" value="'.(isset($fp->conf['rpath'])?$fp->conf['rpath']:'/wp-content/plugins/word-press-flow-player').'" />	
+			(Only change this if you have a non standard word press install)
+		</td>
+	</tr>	
+	<tr>
 		<td>Auto Buffering:</td>
 		<td><select name="autobuffer">';
 $html .= bool_select($fp->conf['autobuffer']);
@@ -330,11 +337,11 @@ class flowplayer
 	/**
 	 * Relative URL path
 	 */
-	const RELATIVE_PATH = '/wp-content/plugins/word-press-flow-player';
+	private $RELATIVE_PATH = '';
 	/**
 	 * Where videos _should_ be stored
 	 */
-	const VIDEO_PATH = '/wp-content/videos/';
+	private $VIDEO_PATH = '';
 	/**
 	 * Where the config file should be
 	 */
@@ -386,6 +393,13 @@ class flowplayer
 					$this->conf[$data[0]] = $data[1];
 					$return = true;
 				}
+			}
+			if(!isset($this->conf['rpath'])) {
+				$this->RELATIVE_PATH = '/wp-content/plugins/word-press-flow-player';
+				$this->VIDEO_PATH = '/wp-content/videos'; 
+			} else {
+				$this->RELATIVE_PATH = $this->conf['rpath'];
+				$this->VIDEO_PATH = substr(0, strpos($this->conf['rpath'],'wp-content'),$this->conf['rpath']).'wp-content/videos';
 			}
 			fclose($fp);
 		} else {
@@ -488,10 +502,15 @@ contextMenu: [
     }} 
 ], 
  */
+//$config = 'plugins:{controls:{buttonOverColor:\''.$this->conf['buttonOverColor'].'\',sliderColor:\''.$this->conf['sliderColor'].'\',bufferColor:\''.$this->conf['bufferColor'].'\',sliderGradient:\'none\',progressGradient:\'medium\',durationColor:\''.$this->conf['durationColor'].'\',progressColor:\''.$this->conf['progressColor'].'\',backgroundColor:\''.$this->conf['backgroundColor'].'\',timeColor:\''.$this->conf['timeColor'].'\',buttonColor:\''.$this->conf['buttonColor'].'\',backgroundGradient:\'none\',bufferGradient:\'none\',opacity:1.0}},clip:{url:\''.$media.'\',autoPlay:'.$this->conf['autoplay'].',autoBuffering:'.$this->conf['autobuffer'].'}';
+
+//$embed = '<object width="'.$width.'" height="'.$height.'"><embed type="application/x-shockwave-flash" wmode="transparent" src="http://'.$_SERVER['SERVER_NAME'].$player.'?config={'.str_replace("\n", '', $config).'}" width="'.$width.'" height="'.$height.'"></embed></object>';
+
+
 			$html .= '
 <script language="JavaScript">
-$f("saiweb_'.$hash.'", "'.$player.'", {   
-	plugins: {
+$f("saiweb_'.$hash.'", "'.$player.'", {
+plugins: {
   					 controls: {    					
       					buttonOverColor: \''.$this->conf['buttonOverColor'].'\',
       					sliderColor: \''.$this->conf['sliderColor'].'\',
@@ -510,9 +529,9 @@ $f("saiweb_'.$hash.'", "'.$player.'", {
 				},
 	clip: { 
         url: \''.$media.'\', 
-        autoPlay: '.$this->conf['autoplay'].',
-        autoBuffering: '.$this->conf['autobuffer'].'
-    }  
+        autoPlay: '.(isset($this->conf['autoplay'])?$this->conf['autoplay']:'false').',
+        autoBuffering: '.(isset($this->conf['autobuffer'])?$this->conf['autobuffer']:'false').'
+    }
 });
 </script>';
 			
