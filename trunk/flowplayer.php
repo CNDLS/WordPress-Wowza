@@ -396,7 +396,7 @@ class flowplayer
 			}
 			if(!defined('RELATIVE_PATH')){
 				define('RELATIVE_PATH',(isset($this->conf['rpath'])?$this->conf['rpath']:'/wp-content/plugins/word-press-flow-player'));
-				define('VIDEO_PATH',(isset($this->conf['rpath'])?substr(0, strpos($this->conf['rpath'],'wp-content'),$this->conf['rpath']).'wp-content/videos/':'/wp-content/videos/')); 
+				define('VIDEO_PATH',(isset($this->conf['rpath'])?substr(0, strpos($this->conf['rpath'],'wp-content'),$this->conf['rpath']).'/wp-content/videos/':'/wp-content/videos/')); 
 			}
 			fclose($fp);
 		} else {
