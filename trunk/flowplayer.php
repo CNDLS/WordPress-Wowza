@@ -337,11 +337,11 @@ class flowplayer
 	/**
 	 * Relative URL path
 	 */
-	private $RELATIVE_PATH = '';
+	public $RELATIVE_PATH = '';
 	/**
 	 * Where videos _should_ be stored
 	 */
-	private $VIDEO_PATH = '';
+	public $VIDEO_PATH = '';
 	/**
 	 * Where the config file should be
 	 */
