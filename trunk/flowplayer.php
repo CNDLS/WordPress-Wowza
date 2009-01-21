@@ -23,7 +23,7 @@ Author URI: http://saiweb.co.uk
 add_action('wp_head', 'flowplayer_head');
 add_filter('the_content', 'flowplayer_content');
 add_action('admin_menu', 'flowplayer_admin');
-
+$fp = new flowplayer();
 /**
  * END WP Hooks
  */
@@ -394,8 +394,10 @@ class flowplayer
 					$return = true;
 				}
 			}
-			define('RELATIVE_PATH',(isset($this->conf['rpath'])?$this->conf['rpath']:'/wp-content/plugins/word-press-flow-player'));
-			define('VIDEO_PATH',(isset($this->conf['rpath'])?substr(0, strpos($this->conf['rpath'],'wp-content'),$this->conf['rpath']).'wp-content/videos':'/wp-content/videos')); 
+			if(!defined('RELATIVE_PATH')){
+				define('RELATIVE_PATH',(isset($this->conf['rpath'])?$this->conf['rpath']:'/wp-content/plugins/word-press-flow-player'));
+				define('VIDEO_PATH',(isset($this->conf['rpath'])?substr(0, strpos($this->conf['rpath'],'wp-content'),$this->conf['rpath']).'wp-content/videos':'/wp-content/videos')); 
+			}
 			fclose($fp);
 		} else {
 			error_log("Files does not exist: $this->conf_path, attempting to create");
