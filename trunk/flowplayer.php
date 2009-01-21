@@ -195,21 +195,10 @@ flowplayer_admin_head();
    						}
 				},
 				clip: {
-					url:\'http://blip.tv/file/get/N8inpasadena-Flowers457.flv\',
+					url:\'http://saiweb.co.uk/wp-content/videos/wpfp_config_demo.mp4\',
 					autoPlay: '.(isset($fp->conf['autoplay'])?$fp->conf['autoplay']:'false').',
        				autoBuffering: '.(isset($fp->conf['autobuffer'])?$fp->conf['autobuffer']:'false').'
-				},
-				screen: {
-					top:\'10px\',
-					left:20,
-					width:300,
-					height:200
-				},
-		
-				logo: {
-					width:200
-				},
-		
+				},	
 				canvas: {
 					backgroundColor:\'#333333\'
 				},
