@@ -34,7 +34,7 @@ add_action('admin_menu', 'flowplayer_admin');
  */
  function flowplayer_head() {
  	$html = "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript Start -->\n";
-	$html .= '<script type="text/javascript" src="'.flowplayer::$RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer.min.js"></script>';
+	$html .= '<script type="text/javascript" src="'.RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer.min.js"></script>';
  	$html .= "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript END -->\n";
  	echo $html;
  }
@@ -72,8 +72,8 @@ function flowplayer_admin () {
  	 */
  	$html = "\n<!-- Saiweb.co.uk Flowplayer For Wordpress ADMIN Javascript Start -->\n";
  	$html .= '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>';	
- 	$html .= "\n".'<script type="text/javascript" src="'.flowplayer::$RELATIVE_PATH.'/js/farbtastic/farbtastic.js"></script>';
- 	$html .= "\n".'<link rel="stylesheet" href="'.flowplayer::$RELATIVE_PATH.'/js/farbtastic/farbtastic.css" type="text/css" />';
+ 	$html .= "\n".'<script type="text/javascript" src="'.RELATIVE_PATH.'/js/farbtastic/farbtastic.js"></script>';
+ 	$html .= "\n".'<link rel="stylesheet" href="'.RELATIVE_PATH.'/js/farbtastic/farbtastic.css" type="text/css" />';
  	$html .= "\n<!-- Saiweb.co.uk Flowplayer For Wordpress ADMIN Javascript END -->\n";
  	echo $html;
  }
@@ -176,7 +176,7 @@ flowplayer_admin_head();
 <script language="Javascript" type="text/javascript">
 	$(document).ready(function() {
 		//load player
-		$f("player", "'.flowplayer::$RELATIVE_PATH.PLAYER.'", {
+		$f("player", "'.RELATIVE_PATH.PLAYER.'", {
 				plugins: {
   					 controls: {    					
       					buttonOverColor: \''.$fp->conf['buttonOverColor'].'\',
@@ -337,11 +337,11 @@ class flowplayer
 	/**
 	 * Relative URL path
 	 */
-	public $RELATIVE_PATH = '';
+	const RELATIVE_PATH = '';
 	/**
 	 * Where videos _should_ be stored
 	 */
-	public $VIDEO_PATH = '';
+	const VIDEO_PATH = '';
 	/**
 	 * Where the config file should be
 	 */
@@ -394,13 +394,8 @@ class flowplayer
 					$return = true;
 				}
 			}
-			if(!isset($this->conf['rpath'])) {
-				$this->RELATIVE_PATH = '/wp-content/plugins/word-press-flow-player';
-				$this->VIDEO_PATH = '/wp-content/videos'; 
-			} else {
-				$this->RELATIVE_PATH = $this->conf['rpath'];
-				$this->VIDEO_PATH = substr(0, strpos($this->conf['rpath'],'wp-content'),$this->conf['rpath']).'wp-content/videos';
-			}
+			define('RELATIVE_PATH',(isset($this->conf['rpath'])?$this->conf['rpath']:'/wp-content/plugins/word-press-flow-player'));
+			define('VIDEO_PATH',(isset($this->conf['rpath'])?substr(0, strpos($this->conf['rpath'],'wp-content'),$this->conf['rpath']).'wp-content/videos':'/wp-content/videos')); 
 			fclose($fp);
 		} else {
 			error_log("Files does not exist: $this->conf_path, attempting to create");
@@ -468,10 +463,10 @@ class flowplayer
 	public function build_min_player($width, $height, $media, $server=false) {
 			
 			if(strpos($media,'http://') === false) {
-				$media = flowplayer::$VIDEO_PATH.$media;
+				$media = VIDEO_PATH.$media;
 			}
 			//set player path
-			$player = flowplayer::$RELATIVE_PATH.PLAYER;
+			$player = RELATIVE_PATH.PLAYER;
 			
 			$html = ''; //setup html var
 			/**
