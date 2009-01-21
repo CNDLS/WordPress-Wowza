@@ -34,7 +34,7 @@ add_action('admin_menu', 'flowplayer_admin');
  */
  function flowplayer_head() {
  	$html = "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript Start -->\n";
-	$html .= '<script type="text/javascript" src="'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer.min.js"></script>';
+	$html .= '<script type="text/javascript" src="'.flowplayer::$RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer.min.js"></script>';
  	$html .= "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript END -->\n";
  	echo $html;
  }
@@ -72,8 +72,8 @@ function flowplayer_admin () {
  	 */
  	$html = "\n<!-- Saiweb.co.uk Flowplayer For Wordpress ADMIN Javascript Start -->\n";
  	$html .= '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>';	
- 	$html .= "\n".'<script type="text/javascript" src="'.flowplayer::RELATIVE_PATH.'/js/farbtastic/farbtastic.js"></script>';
- 	$html .= "\n".'<link rel="stylesheet" href="'.flowplayer::RELATIVE_PATH.'/js/farbtastic/farbtastic.css" type="text/css" />';
+ 	$html .= "\n".'<script type="text/javascript" src="'.flowplayer::$RELATIVE_PATH.'/js/farbtastic/farbtastic.js"></script>';
+ 	$html .= "\n".'<link rel="stylesheet" href="'.flowplayer::$RELATIVE_PATH.'/js/farbtastic/farbtastic.css" type="text/css" />';
  	$html .= "\n<!-- Saiweb.co.uk Flowplayer For Wordpress ADMIN Javascript END -->\n";
  	echo $html;
  }
@@ -176,7 +176,7 @@ flowplayer_admin_head();
 <script language="Javascript" type="text/javascript">
 	$(document).ready(function() {
 		//load player
-		$f("player", "'.flowplayer::RELATIVE_PATH.PLAYER.'", {
+		$f("player", "'.flowplayer::$RELATIVE_PATH.PLAYER.'", {
 				plugins: {
   					 controls: {    					
       					buttonOverColor: \''.$fp->conf['buttonOverColor'].'\',
@@ -468,10 +468,10 @@ class flowplayer
 	public function build_min_player($width, $height, $media, $server=false) {
 			
 			if(strpos($media,'http://') === false) {
-				$media = flowplayer::VIDEO_PATH.$media;
+				$media = flowplayer::$VIDEO_PATH.$media;
 			}
 			//set player path
-			$player = flowplayer::RELATIVE_PATH.PLAYER;
+			$player = flowplayer::$RELATIVE_PATH.PLAYER;
 			
 			$html = ''; //setup html var
 			/**
@@ -534,9 +534,6 @@ plugins: {
     }
 });
 </script>';
-			
-    		//$html .= '<script language="JavaScript"> flowplayer("saiweb_'.$hash.'", "'.flowplayer::RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer-3.0.1.swf"); </script>';
-
 		return $html;
 	}
 }
