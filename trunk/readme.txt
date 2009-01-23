@@ -46,3 +46,4 @@ Please use our TRAC system here: http://trac.saiweb.co.uk/saiweb
 
 == Screenshots ==
 
+1. Admin interface in wordpress 2.7
