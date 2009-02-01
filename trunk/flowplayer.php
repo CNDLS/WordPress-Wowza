@@ -200,7 +200,7 @@ flowplayer_admin_head();
 if($fp->conf['logoenable']){
 	$html .= '
 		logo: {  
-        url: \''.$fp->conf['logourl'].'\',  
+        url: \''.$fp->conf['logo'].'\',  
         fullscreenOnly: '.$fp->conf['fullscreenonly'].',  
         displayTime: 0,
         linkUrl: \''.$fp->conf['logolink'].'\' 
@@ -562,7 +562,7 @@ plugins: {
 
 if($this->conf['logoenable']){
 	$html .= 'logo: {  
-        url: \''.$this->conf['logourl'].'\',  
+        url: \''.$this->conf['logo'].'\',  
         fullscreenOnly: '.$this->conf['fullscreenonly'].',  
         displayTime: 0,
         linkUrl: \''.$this->conf['logolink'].'\' 
