@@ -197,7 +197,7 @@ flowplayer_admin_head();
 					autoPlay: '.(isset($fp->conf['autoplay'])?$fp->conf['autoplay']:'false').',
        				autoBuffering: '.(isset($fp->conf['autobuffer'])?$fp->conf['autobuffer']:'false').'
 				},';
-if($fp->conf['logoenable']){
+if($fp->conf['logoenable'] == 'true'){
 	$html .= '
 		logo: {  
         url: \'http://'.$fp->conf['logo'].'\',  
@@ -343,11 +343,11 @@ Note: logo resizing is not yet supported your logo will show at full size
 		<td><select name="logoenable">'.bool_select($fp->conf['logoenable']).'</select></td>
 	</tr>
 	<tr>
-		<td>Logo URL (WITHOUT HTTP://)</td>
+		<td>Logo URL</td>
 		<td>http://<input type="text" size="20" name="logo" id="logo" value="'.$fp->conf['logo'].'" /></td>
 	</tr>
 	<tr>
-		<td>Logo Link (WITHOUT HTTP://)</td>
+		<td>Logo Link</td>
 		<td>http://<input type="text" size="20" name="logolink" id="logolink" value="'.$fp->conf['logolink'].'" /></td>
 	</tr>
 		<td>Fullscreen Only</td>
@@ -560,7 +560,7 @@ plugins: {
    						}
 				},';
 
-if($this->conf['logoenable']){
+if($this->conf['logoenable'] == 'true'){
 	$html .= 'logo: {  
         url: \'http://'.$this->conf['logo'].'\',  
         fullscreenOnly: '.$this->conf['fullscreenonly'].',  
