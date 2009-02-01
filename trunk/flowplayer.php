@@ -439,7 +439,7 @@ class flowplayer
 				 */
 				define('RELATIVE_PATH', get_option('siteurl').'/wp-content/plugins/word-press-flow-player');
 				define('PLAYER', RELATIVE_PATH.'/flowplayer/flowplayer.commercial-3.0.3.swf');
-				define('VIDEO_PATH', get_option('siteurl').'/wp-content/videos');
+				define('VIDEO_PATH', get_option('siteurl').'/wp-content/videos/');
 			}
 			fclose($fp);
 		} else {
