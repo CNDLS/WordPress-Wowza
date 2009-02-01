@@ -446,8 +446,8 @@ class flowplayer
 				/*
 				 * 2.0.1.3 found out about get_settings() func, much easier to set paths now
 				 */
-				define('RELATIVE_PATH', get_settings('siteurl').'/wp-content/plugins/word-press-flow-player');
-				define('VIDEO_PATH', get_settings('siteurl').'/wp-content/videos');
+				define('RELATIVE_PATH', get_option('siteurl').'/wp-content/plugins/word-press-flow-player');
+				define('VIDEO_PATH', get_option('siteurl').'/wp-content/videos');
 			}
 			fclose($fp);
 		} else {
