@@ -174,7 +174,7 @@ flowplayer_admin_head();
 	$(document).ready(function() {
 		//load player
 		$f("player", "'.PLAYER.'", {
-				'.(isset($this->conf['key'])&&strlen($this->conf['key'])>0?'key:\''.$this->conf['key'].'\',':'').'
+				'.(isset($fp->conf['key'])&&strlen($fp->conf['key'])>0?'key:\''.$fp->conf['key'].'\',':'').'
 				plugins: {
   					 controls: {    					
       					buttonOverColor: \''.$fp->conf['buttonOverColor'].'\',
