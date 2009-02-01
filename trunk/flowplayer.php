@@ -304,20 +304,22 @@ function check_errors($fp){
 	 */
 	$conf_file = realpath(dirname(__FILE__)).'/saiweb_wpfp.conf';
 	if(!file_exists($conf_file)){
-		$html .= '<h1 style="font-weight: bold; color: #ff0000">'.$conf_file.' Does not exist please create it</h1>';
+		$html .= '<h3 style="font-weight: bold; color: #ff0000">'.$conf_file.' Does not exist please create it</h3>';
 	} elseif(!is_readable($conf_file)){
-		$html .= '<h1 style="font-weight: bold; color: #ff0000">'.$conf_file.' is not readable please check file permissions</h1>';
+		$html .= '<h3 style="font-weight: bold; color: #ff0000">'.$conf_file.' is not readable please check file permissions</h3>';
 	} elseif(!is_writable($conf_file)){
-		$html .= '<h1 style="font-weight: bold; color: #ff0000">'.$conf_file.' is not writable please check file permissions</h1>';
+		$html .= '<h3 style="font-weight: bold; color: #ff0000">'.$conf_file.' is not writable please check file permissions</h3>';
 	}
 	/*
 	 * Checking of rpath
+	 * Not active yet
 	 */
+	 /*
 	 if(!function_exists('curl_exec')){
 	 	$html .= '<h1 style="font-weight: bold;">WARN: It appears you do not have curl as part of your PHP installation, RPATH checks will not be made</h1>';
 	 } else {
-	 	
-	 }
+	 	//isset($fp->conf['rpath'])?$fp->conf['rpath']:'/wp-content/plugins/word-press-flow-player'
+	 }*/
 }
 
 function flowplayer_commercial($fp) {
@@ -326,6 +328,10 @@ function flowplayer_commercial($fp) {
 <div id="saiweb_wpfp_commercial_options" style="display:none;">
 Note: logo resizing is not yet supported your logo will show at full size
 <table>
+	<tr>
+		<td>Logo Enabled</td>
+		<td><select name="logoenable">'.bool_select($fp->conf['logoenable']).'</select></td>
+	</tr>
 	<tr>
 		<td>Logo URL</td>
 		<td><input type="text" size="20" name="logo" id="logo" value="'.$fp->conf['logo'].'" /></td>
@@ -542,8 +548,19 @@ plugins: {
       					bufferGradient: \'none\',
    						opacity:1.0
    						}
-				},
-	clip: { 
+				},';
+
+if($this->conf['logoenable']){
+	$html .= 'logo: {  
+        url: \''.$this->conf['logourl'].'\',  
+        fullscreenOnly: '.$this->conf['fullscreenonly'].',  
+        displayTime: 0,
+        linkUrl: \''.$this->conf['logolink'].'\' 
+    },';
+}
+
+$html .= '
+		clip: { 
         url: \''.$media.'\', 
         autoPlay: '.(isset($this->conf['autoplay'])?$this->conf['autoplay']:'false').',
         autoBuffering: '.(isset($this->conf['autobuffer'])?$this->conf['autobuffer']:'false').'
