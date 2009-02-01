@@ -438,6 +438,7 @@ class flowplayer
 				 * 2.0.1.3 found out about get_settings() func, much easier to set paths now
 				 */
 				define('RELATIVE_PATH', get_option('siteurl').'/wp-content/plugins/word-press-flow-player');
+				define('PLAYER', RELATIVE_PATH.'/flowplayer/flowplayer.commercial-3.0.3.swf');
 				define('VIDEO_PATH', get_option('siteurl').'/wp-content/videos');
 			}
 			fclose($fp);
