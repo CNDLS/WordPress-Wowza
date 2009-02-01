@@ -197,7 +197,7 @@ flowplayer_admin_head();
 					autoPlay: '.(isset($fp->conf['autoplay'])?$fp->conf['autoplay']:'false').',
        				autoBuffering: '.(isset($fp->conf['autobuffer'])?$fp->conf['autobuffer']:'false').'
 				},';
-if($this->conf['logoenable']){
+if($fp->conf['logoenable']){
 	$html .= '
 		logo: {  
         url: \''.$fp->conf['logourl'].'\',  
