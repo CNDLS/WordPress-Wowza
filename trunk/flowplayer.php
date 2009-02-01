@@ -296,7 +296,10 @@ $html .='
 <br /><br />
 <h3><a href="http://trac.saiweb.co.uk/saiweb">Report a Bug</a></h3>
 </div>';
- 
+	if(isset($_POST['submit'])) {
+		//write config
+		$this->_set_conf();
+	}
  echo $html;
 }
 
@@ -398,18 +401,7 @@ class flowplayer
 	 */
 	public function __construct() {
 		//set conf path
-		$this->conf_path = realpath(dirname(__FILE__)).'/saiweb_wpfp.conf';		
-			//check this is the admin page
-			/*if(check_admin_referer()) {
-				// this is the admin page
-				//if a post event has occured
-				if(isset($_POST['submit'])) {
-					//write config
-					$this->_set_conf();
-				}
-			} else {
-				error_log('check_admin_referer() failed');
-			}*/
+		$this->conf_path = realpath(dirname(__FILE__)).'/saiweb_wpfp.conf';
 		//load conf data into stack
 		$this->_get_conf();
 	}
