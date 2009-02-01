@@ -320,7 +320,8 @@ function check_errors($fp){
 }
 
 function flowplayer_commercial($fp) {
-	$html = '<a name="commercial_features"></a><a href="#commercial_features" onclick="$(\'#saiweb_wpfp_commercial_options\').showhide();">Show Commercial Features<a>
+	$html = '<a name="commercial_features"></a>
+<a href="#commercial_features" onclick="$(\'#saiweb_wpfp_commercial_options\').showhide();">Show Commercial Features<a>
 <div id="saiweb_wpfp_commercial_options" style="display:none;">
 Note: logo resizing is not yet supported your logo will show at full size
 <table>
@@ -335,6 +336,7 @@ Note: logo resizing is not yet supported your logo will show at full size
 		<td>Fullscreen Only</td>
 		<td><select name="fullscreenonly">'.bool_select($fp->conf['fullscreenonly']).'</select></td>
 	</tr>
+</table>
 </div>';
 	return $html;
 }
