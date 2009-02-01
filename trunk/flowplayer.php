@@ -404,12 +404,13 @@ class flowplayer
 			$referer = strtolower( $_SERVER['HTTP_REFERER'] );
 			if(strstr($referer, $admin)) {
 				// this is the admin page
-				
 				//if a post event has occured
 				if(isset($_POST['submit'])) {
 					//write config
 					$this->_set_conf();
 				}
+			} else {
+				error_log('Referer: '.$referer.' Admin:'.$admin);
 			}
 		//load conf data into stack
 		$this->_get_conf();
