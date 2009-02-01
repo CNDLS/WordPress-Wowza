@@ -400,9 +400,7 @@ class flowplayer
 		//set conf path
 		$this->conf_path = realpath(dirname(__FILE__)).'/saiweb_wpfp.conf';		
 			//check this is the admin page
-			$admin = strtolower( get_settings('siteurl') ) . '/wp-admin';
-			$referer = strtolower( $_SERVER['HTTP_REFERER'] );
-			if(strstr($referer, $admin)) {
+			if(check_admin_referer()) {
 				// this is the admin page
 				//if a post event has occured
 				if(isset($_POST['submit'])) {
@@ -410,7 +408,7 @@ class flowplayer
 					$this->_set_conf();
 				}
 			} else {
-				error_log('Referer: '.$referer.' Admin:'.$admin);
+				error_log('check_admin_referer() failed');
 			}
 		//load conf data into stack
 		$this->_get_conf();
