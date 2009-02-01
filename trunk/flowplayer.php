@@ -298,7 +298,7 @@ $html .='
 </div>';
 	if(isset($_POST['submit'])) {
 		//write config
-		$this->_set_conf();
+		$fp->_set_conf();
 	}
  echo $html;
 }
