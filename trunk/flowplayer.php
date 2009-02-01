@@ -320,7 +320,7 @@ function check_errors($fp){
 }
 
 function flowplayer_commercial($fp) {
-	$html = '<a name="commercial_features"></a><a href="#commercial_features" onclick="$(\'#saiweb_wpfp_commercial_options\').showhide();">
+	$html = '<a name="commercial_features"></a><a href="#commercial_features" onclick="$(\'#saiweb_wpfp_commercial_options\').showhide();">Show Commercial Features<a>
 <div id="saiweb_wpfp_commercial_options" style="display:none;">
 Note: logo resizing is not yet supported your logo will show at full size
 <table>
