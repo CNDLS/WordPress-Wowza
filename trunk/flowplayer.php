@@ -461,7 +461,7 @@ class flowplayer
 	/**
 	 * write config vars
 	 */
-	private function _set_conf() {
+	protected function _set_conf() {
 		//attempt to open file
 		$fp = fopen($this->conf_path,'w');
 		
