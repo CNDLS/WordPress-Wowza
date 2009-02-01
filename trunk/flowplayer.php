@@ -196,7 +196,17 @@ flowplayer_admin_head();
 					url:\'http://saiweb.co.uk/wp-content/videos/wpfp_config_demo.mp4\',
 					autoPlay: '.(isset($fp->conf['autoplay'])?$fp->conf['autoplay']:'false').',
        				autoBuffering: '.(isset($fp->conf['autobuffer'])?$fp->conf['autobuffer']:'false').'
-				},	
+				},';
+if($this->conf['logoenable']){
+	$html .= '
+		logo: {  
+        url: \''.$fp->conf['logourl'].'\',  
+        fullscreenOnly: '.$fp->conf['fullscreenonly'].',  
+        displayTime: 0,
+        linkUrl: \''.$fp->conf['logolink'].'\' 
+    },';
+}
+$html .= '
 				canvas: {
 					backgroundColor:\''.$fp->conf['backgroungColor'].'\'
 				},
@@ -333,12 +343,12 @@ Note: logo resizing is not yet supported your logo will show at full size
 		<td><select name="logoenable">'.bool_select($fp->conf['logoenable']).'</select></td>
 	</tr>
 	<tr>
-		<td>Logo URL</td>
-		<td><input type="text" size="20" name="logo" id="logo" value="'.$fp->conf['logo'].'" /></td>
+		<td>Logo URL (WITHOUT HTTP://)</td>
+		<td>http://<input type="text" size="20" name="logo" id="logo" value="'.$fp->conf['logo'].'" /></td>
 	</tr>
 	<tr>
-		<td>Logo Link</td>
-		<td><input type="text" size="20" name="logolink" id="logolink" value="'.$fp->conf['logolink'].'" /></td>
+		<td>Logo Link (WITHOUT HTTP://)</td>
+		<td>http://<input type="text" size="20" name="logolink" id="logolink" value="'.$fp->conf['logolink'].'" /></td>
 	</tr>
 		<td>Fullscreen Only</td>
 		<td><select name="fullscreenonly">'.bool_select($fp->conf['fullscreenonly']).'</select></td>
