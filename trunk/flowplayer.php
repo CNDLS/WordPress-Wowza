@@ -69,6 +69,7 @@ function flowplayer_admin () {
  	$html = "\n<!-- Saiweb.co.uk Flowplayer For Wordpress ADMIN Javascript Start -->\n";
  	$html .= '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>';	
  	$html .= "\n".'<script type="text/javascript" src="'.RELATIVE_PATH.'/js/farbtastic/farbtastic.js"></script>';
+ 	$html .= "\n".'<script src="http://svn.saiweb.co.uk/branches/jquery_plugin/tags/0.1/jquery.saiweb.min.js" type="text/javascript"></script>';
  	$html .= "\n".'<link rel="stylesheet" href="'.RELATIVE_PATH.'/js/farbtastic/farbtastic.css" type="text/css" />';
  	$html .= "\n<!-- Saiweb.co.uk Flowplayer For Wordpress ADMIN Javascript END -->\n";
  	echo $html;
@@ -319,9 +320,21 @@ function check_errors($fp){
 }
 
 function flowplayer_commercial($fp) {
-	$html = '
+	$html = '<a name="commercial_features"></a><a href="#commercial_features" onclick="$(\'#saiweb_wpfp_commercial_options\').showhide();">
 <div id="saiweb_wpfp_commercial_options" style="display:none;">
-
+Note: logo resizing is not yet supported your logo will show at full size
+<table>
+	<tr>
+		<td>Logo URL</td>
+		<td><input type="text" size="20" name="logo" id="logo" value="'.$fp->conf['logo'].'" /></td>
+	</tr>
+	<tr>
+		<td>Logo Link</td>
+		<td><input type="text" size="20" name="logolink" id="logolink" value="'.$fp->conf['logolink'].'" /></td>
+	</tr>
+		<td>Fullscreen Only</td>
+		<td><select name="fullscreenonly">'.bool_select($fp->conf['fullscreenonly']).'</select></td>
+	</tr>
 </div>';
 	return $html;
 }
