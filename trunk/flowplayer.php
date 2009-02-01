@@ -268,13 +268,6 @@ A lot of development time and effort went into Flowplayer and this plugin, you c
 			<input type="text" size="20" name="key" id="key" value="'.$fp->conf['key'].'" />	
 			(Required for certain features i.e. custom logo)
 		</td>
-	</tr>
-	<tr>
-		<td>Relative Path: </td>
-		<td>
-			<input type="text" size="20" name="rpath" id="rpath" value="'.(isset($fp->conf['rpath'])?$fp->conf['rpath']:'/wp-content/plugins/word-press-flow-player').'" />	
-			(Only change this if you have a non standard word press install)
-		</td>
 	</tr>	
 	<tr>
 		<td>Auto Buffering:</td>
@@ -320,16 +313,6 @@ function check_errors($fp){
 	} elseif(!is_writable($conf_file)){
 		$html .= '<h3 style="font-weight: bold; color: #ff0000">'.$conf_file.' is not writable please check file permissions</h3>';
 	}
-	/*
-	 * Checking of rpath
-	 * Not active yet
-	 */
-	 /*
-	 if(!function_exists('curl_exec')){
-	 	$html .= '<h1 style="font-weight: bold;">WARN: It appears you do not have curl as part of your PHP installation, RPATH checks will not be made</h1>';
-	 } else {
-	 	//isset($fp->conf['rpath'])?$fp->conf['rpath']:'/wp-content/plugins/word-press-flow-player'
-	 }*/
 }
 
 function flowplayer_commercial($fp) {
@@ -352,6 +335,12 @@ Note: logo resizing is not yet supported your logo will show at full size
 	</tr>
 		<td>Fullscreen Only</td>
 		<td><select name="fullscreenonly">'.bool_select($fp->conf['fullscreenonly']).'</select></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>
+			<input type="submit" name="submit" class="button-primary" value="Save Changes" />
+		</td>
 	</tr>
 </table>
 </div>';
@@ -409,12 +398,19 @@ class flowplayer
 	 */
 	public function __construct() {
 		//set conf path
-		$this->conf_path = realpath(dirname(__FILE__)).'/saiweb_wpfp.conf';
-		//if a post event has occured
-		if(isset($_POST['submit'])) {
-			//write config
-			$this->_set_conf();
-		}
+		$this->conf_path = realpath(dirname(__FILE__)).'/saiweb_wpfp.conf';		
+			//check this is the admin page
+			$admin = strtolower( get_settings('siteurl') ) . '/wp-admin';
+			$referer = strtolower( $_SERVER['HTTP_REFERER'] );
+			if(strstr($referer, $admin)) {
+				// this is the admin page
+				
+				//if a post event has occured
+				if(isset($_POST['submit'])) {
+					//write config
+					$this->_set_conf();
+				}
+			}
 		//load conf data into stack
 		$this->_get_conf();
 	}
@@ -447,19 +443,15 @@ class flowplayer
 				}
 			}
 			if(!defined('RELATIVE_PATH')){
-				define('RELATIVE_PATH',(isset($this->conf['rpath'])?$this->conf['rpath']:'/wp-content/plugins/word-press-flow-player'));
-				$vpath = (isset($this->conf['rpath'])?substr(0, strpos($this->conf['rpath'],'wp-content'),$this->conf['rpath']).'/wp-content/videos/':'/wp-content/videos/');
-				//clean up any 'double' //
-				/**
-				 * @todo add checking for //, and only 'clean up' if required.
+				/*
+				 * 2.0.1.3 found out about get_settings() func, much easier to set paths now
 				 */
-				$vpath = str_replace('//','/',$vpath);
-				define('VIDEO_PATH',$vpath);
-				define('PLAYER',RELATIVE_PATH.'/flowplayer/flowplayer.commercial-3.0.3.swf');
+				define('RELATIE_PATH', get_settings('siteurl').'/wp-content/plugins/word-press-flow-player');
+				define('VIDEO_PATH', get_settings('siteurl').'/wp-content/videos');
 			}
 			fclose($fp);
 		} else {
-			error_log("Files does not exist: $this->conf_path, attempting to create");
+			error_log("File does not exist: $this->conf_path, attempting to create");
 			//attempt to create file
 			if(touch($this->conf_path)) {
 				//everything is ok!
