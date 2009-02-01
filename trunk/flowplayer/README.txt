@@ -1,5 +1,31 @@
 Version history:
 
+3.0.3
+-----
+- fixed cuepoint firing: Does not skip cuepoints any more
+- Plugins can now be loaded from a different domain to the flowplayer.swf
+- Specifying a clip to play by just using the 'clip' node in the configuration was not working, a playlist definition was required. This is now fixed.
+- Fixed: A playlist with different providers caused the onMetadata event to fire events with metadata from the previous clip in the playlist. Occurred when moving in the playlist with next() and prev()
+- the opacity setting now works with the logo
+- fadeOut() call to the "screen" plugin was sending the listenerId and pluginName arguments in wrong order
+- stop(), pause(), resume(), close() no longer return the flowplayer object to JS
+- changing the size of the screen in a onFullscreen listener now always works, there was a bug that caused this to fail occasionally
+- fixed using arbitrary SWFs as plugins
+- the API method setPlaylist() no longer starts playing if autoPlay: true, neither it starts buffering if autoBuffering: true
+- the API method play() now accepts an array of clip objects as an argument, the playlist is replaced with the specified clips and playback starts from the 1st clip
+
+3.0.2
+-----
+- setting play: null now works again
+- pressing the play again button overlay does not open a linkUrl associated with a clip
+- now displays a live feed even when the RTMP server does not send any metadata and the onStart method is not therefore dispatched
+- added onMetaData clip event
+- fixed 'orig' scaling: the player went to 'fit' scaling after coming back from fullscreen. This is now fixed and the original dimensions are preserved in non-fullscreen mode.
+- cuepoint times are now given in milliseconds, the firing precision is 100 ms. All cuepoint times are rounded to the nearest 100 ms value (for example 1120 rounds to 1100) 
+- backgroundGradient was drawn over the background image in the canvas and in the content and controlbar plugins. Now it's drawn below the image.
+- added cuepointMultiplier property to clips. This can be used to multiply the time values read from cuepoint metadata embedded into video files.
+- the player's framerate was increased to 24 FPS, makes all animations smoother
+
 3.0.1
 -----
 - Fixed negative cuepoints from common clip. Now these are properly propagated to the clips in playlist.

@@ -2,8 +2,8 @@
 /*
 Plugin Name: Flowplayer for Wordpress
 Plugin URI: http://saiweb.co.uk/wordpress-flowplayer
-Description: Flowplayer Wordpress Extension GPL Edition
-Version: 2.0.1.2
+Description: Flowplayer Wordpress Extension
+Version: 2.0.1.3
 Author: David Busby
 Author URI: http://saiweb.co.uk
 */
@@ -12,11 +12,7 @@ Author URI: http://saiweb.co.uk
  * ©2008 David Busby
  * @see http://creativecommons.org/licenses/by-nc-sa/2.0/uk
  */
-
-/**
- * defines
- */
- define("PLAYER",'/flowplayer_3.0.1_gpl/flowplayer-3.0.1.swf');
+ 
 /**
  * WP Hooks
  */
@@ -34,7 +30,7 @@ $fp = new flowplayer();
  */
  function flowplayer_head() {
  	$html = "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript Start -->\n";
-	$html .= '<script type="text/javascript" src="'.RELATIVE_PATH.'/flowplayer_3.0.1_gpl/flowplayer.min.js"></script>';
+	$html .= '<script type="text/javascript" src="'.RELATIVE_PATH.'/flowplayer/flowplayer.min.js"></script>';
  	$html .= "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript END -->\n";
  	echo $html;
  }
@@ -138,7 +134,7 @@ function opacity_select($current) {
 function flowplayer_colours($fp) {
 $html ='<ul>
 		<li><input disabled type="radio" name="tgt" value="backgroundColor" checked /> controlbar</li>		
-		<!--<li><input disabled type="radio" name="tgt" value="canvas" /> canvas</li> Not stable yet-->
+		<li><input disabled type="radio" name="tgt" value="canvas" /> canvas</li>
 		<li><input disabled type="radio" name="tgt" value="sliderColor" /> sliders</li>
 		<li><input disabled type="radio" name="tgt" value="buttonColor" /> buttons</li>
 		<li><input disabled type="radio" name="tgt" value="buttonOverColor" /> mouseover</li>
@@ -176,7 +172,7 @@ flowplayer_admin_head();
 <script language="Javascript" type="text/javascript">
 	$(document).ready(function() {
 		//load player
-		$f("player", "'.RELATIVE_PATH.PLAYER.'", {
+		$f("player", "'.PLAYER.'", {
 				plugins: {
   					 controls: {    					
       					buttonOverColor: \''.$fp->conf['buttonOverColor'].'\',
@@ -200,7 +196,7 @@ flowplayer_admin_head();
        				autoBuffering: '.(isset($fp->conf['autobuffer'])?$fp->conf['autobuffer']:'false').'
 				},	
 				canvas: {
-					backgroundColor:\'#333333\'
+					backgroundColor:\''.$fp->conf['backgroungColor'].'\'
 				},
 				onLoad: function() {
 					$(":input[name=tgt]").removeAttr("disabled");		
@@ -218,7 +214,7 @@ flowplayer_admin_head();
 				
 			if (player.isLoaded()) {						
 
-			// adjust canvas bgcolor. uses undocumented API call. not stabilized yer
+			// adjust canvas bgcolor. uses undocumented API call. not stabilized yet
 			if (tgt == \'canvas\') {					
 				player._api().fp_css("canvas", {backgroundColor:color});
 				
@@ -241,7 +237,8 @@ flowplayer_admin_head();
 <h2><a href="http://www.saiweb.co.uk">Saiweb</a> Flowplayer for Wordpress</h2>
 <h3>Like this plugin?</h3>
 A lot of development time and effort went into Flowplayer and this plugin, you can help support further development by purchasing a comercial license for flowplayer.
-<h3><a href="http://flowplayer.org/download/index.html?aff=100">Get a commercial license now!</a></h3>
+<h3><a href="http://flowplayer.org/download/index.html?aff=100&src=saiweb_plugin&domain='.$_SERVER['SERVER_NAME'].'" target="_blank">Get a commercial license now!</a></h3>
+' . check_errors($fp) .'
 <h3>Please set your default player options below</h3>
 <table>
 	<tr>
@@ -286,6 +283,9 @@ $html .='
 		</td>
 	</tr>
 </table>
+<h3>Commercial Features (Note: these features will not work without a valid key!)</h3>'
+.flowplayer_commercial($fp).
+'
 </form>
 <div id="player" style="width:300px;height:200px;"></div>
 <br /><br />
@@ -293,6 +293,37 @@ $html .='
 </div>';
  
  echo $html;
+}
+
+function check_errors($fp){
+	$html = '';
+	/*
+	 * config file checks, exists, readable, writeable
+	 */
+	$conf_file = realpath(dirname(__FILE__)).'/saiweb_wpfp.conf';
+	if(!file_exists($conf_file)){
+		$html .= '<h1 style="font-weight: bold; color: #ff0000">'.$conf_file.' Does not exist please create it</h1>';
+	} elseif(!is_readable($conf_file)){
+		$html .= '<h1 style="font-weight: bold; color: #ff0000">'.$conf_file.' is not readable please check file permissions</h1>';
+	} elseif(!is_writable($conf_file)){
+		$html .= '<h1 style="font-weight: bold; color: #ff0000">'.$conf_file.' is not writable please check file permissions</h1>';
+	}
+	/*
+	 * Checking of rpath
+	 */
+	 if(!function_exists('curl_exec')){
+	 	$html .= '<h1 style="font-weight: bold;">WARN: It appears you do not have curl as part of your PHP installation, RPATH checks will not be made</h1>';
+	 } else {
+	 	
+	 }
+}
+
+function flowplayer_commercial($fp) {
+	$html = '
+<div id="saiweb_wpfp_commercial_options" style="display:none;">
+
+</div>';
+	return $html;
 }
 
 function flowplayer_content( $content ) {
@@ -385,7 +416,14 @@ class flowplayer
 			}
 			if(!defined('RELATIVE_PATH')){
 				define('RELATIVE_PATH',(isset($this->conf['rpath'])?$this->conf['rpath']:'/wp-content/plugins/word-press-flow-player'));
-				define('VIDEO_PATH',(isset($this->conf['rpath'])?substr(0, strpos($this->conf['rpath'],'wp-content'),$this->conf['rpath']).'/wp-content/videos/':'/wp-content/videos/')); 
+				$vpath = (isset($this->conf['rpath'])?substr(0, strpos($this->conf['rpath'],'wp-content'),$this->conf['rpath']).'/wp-content/videos/':'/wp-content/videos/');
+				//clean up any 'double' //
+				/**
+				 * @todo add checking for //, and only 'clean up' if required.
+				 */
+				$vpath = str_replace('//','/',$vpath);
+				define('VIDEO_PATH',$vpath);
+				define('PLAYER',RELATIVE_PATH.'/flowplayer/flowplayer.commercial-3.0.3.swf');
 			}
 			fclose($fp);
 		} else {
@@ -456,9 +494,6 @@ class flowplayer
 			if(strpos($media,'http://') === false) {
 				$media = VIDEO_PATH.$media;
 			}
-			//set player path
-			$player = RELATIVE_PATH.PLAYER;
-			
 			$html = ''; //setup html var
 			/**
 			 * Fix #2 
@@ -471,31 +506,10 @@ class flowplayer
 			 */
 			 $html .= '<div id="saiweb_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;"></div>';
 
-/**
- * key: \''.$this->conf['key'].'\',
- *
-contextMenu: [ 
- 
-    {\'Worpress Flowplayer\' : function() { 
-        location.href = "http://www.saiweb.co.uk/wordpress-flowplayer";  
-    }}, 
-     
-    // menu separator.  
-    \'-\', 
-     
-    {\'Get Flowplayer Comercial\' : function() { 
-        location.href = "http://flowplayer.org/download/index.html?aff=100";  
-    }} 
-], 
- */
-//$config = 'plugins:{controls:{buttonOverColor:\''.$this->conf['buttonOverColor'].'\',sliderColor:\''.$this->conf['sliderColor'].'\',bufferColor:\''.$this->conf['bufferColor'].'\',sliderGradient:\'none\',progressGradient:\'medium\',durationColor:\''.$this->conf['durationColor'].'\',progressColor:\''.$this->conf['progressColor'].'\',backgroundColor:\''.$this->conf['backgroundColor'].'\',timeColor:\''.$this->conf['timeColor'].'\',buttonColor:\''.$this->conf['buttonColor'].'\',backgroundGradient:\'none\',bufferGradient:\'none\',opacity:1.0}},clip:{url:\''.$media.'\',autoPlay:'.$this->conf['autoplay'].',autoBuffering:'.$this->conf['autobuffer'].'}';
-
-//$embed = '<object width="'.$width.'" height="'.$height.'"><embed type="application/x-shockwave-flash" wmode="transparent" src="http://'.$_SERVER['SERVER_NAME'].$player.'?config={'.str_replace("\n", '', $config).'}" width="'.$width.'" height="'.$height.'"></embed></object>';
-
-
-			$html .= '
+			 $html .= '
 <script language="JavaScript">
-$f("saiweb_'.$hash.'", "'.$player.'", {
+$f("saiweb_'.$hash.'", "'.PLAYER.'", {
+'.(isset($this->conf['key'])&&strlen($this->conf['key'])>0?'key:\''.$this->conf['key'].'\'':'').'
 plugins: {
   					 controls: {    					
       					buttonOverColor: \''.$this->conf['buttonOverColor'].'\',

@@ -1,10 +1,10 @@
 === Plugin Name ===
-Contributors: d.busby, flowplayer.org, acko.net
-Donate link: http://www.saiweb.co.uk/wordpress-flowplayer
+Contributors: d.busby
+Donate link: http://www.saiweb.co.uk/wordpress-flowplayer#donate
 Tags: flowplayer, mp4, flv, h264, libx264, HD, streaming, flow, player
 Requires at least: 2.7
 Tested up to: 2.7
-Stable tag: 2.0.1.2
+Stable tag: 2.0.1.3
 
 A Flowplayer plugin for wordpress.
 
@@ -14,11 +14,19 @@ Homepage: http://www.saiweb.co.uk/wordpress-flowplayer
 
 NOTE: IF YOU ARE UPGRADING REMEMBER TO BACKUP YOUR /wp-content/plugins/word-press-flow-player/saiweb_wpfp.conf
 
-The version of flowplayer provided with this plugin is version 3.0.2 and is provided under the GPL license as specified by the authors of flowplayer http://flowplayer.org/.
+The version of flowplayer provided with this plugin is version 3.0.3 and is provided under the GPL license as specified by the authors of flowplayer http://flowplayer.org/.
 
-PLugin is provided under CC License: http://creativecommons.org/licenses/by-nc-sa/2.0/uk
+As of version 2.0.1.3, the bundeled version is the commercial version of flowplayer distributed with permission from the authors, this will allows owners of a commercial key to access commercial features.
+
+Plugin is provided under CC License: http://creativecommons.org/licenses/by-nc-sa/2.0/uk
 
 The admin menu as of plugin version 2.0.1.0 uses farbtastic 1.2 as provided under GPL here: http://acko.net/dev/farbtastic
+
+Credits:
+
+1. http://www.flowplayer.org Flowplayer.
+2. http://acko.net Farbtastic colour picker.
+3. http://saiweb.co.uk Wordpress Flowplayer Plugin.
 
 
 == Installation ==
