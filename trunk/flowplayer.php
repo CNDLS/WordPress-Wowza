@@ -509,7 +509,7 @@ class flowplayer
 			 $html .= '
 <script language="JavaScript">
 $f("saiweb_'.$hash.'", "'.PLAYER.'", {
-'.(isset($this->conf['key'])&&strlen($this->conf['key'])>0?'key:\''.$this->conf['key'].'\'':'').'
+'.(isset($this->conf['key'])&&strlen($this->conf['key'])>0?'key:\''.$this->conf['key'].'\',':'').'
 plugins: {
   					 controls: {    					
       					buttonOverColor: \''.$this->conf['buttonOverColor'].'\',
