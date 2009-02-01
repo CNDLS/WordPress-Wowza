@@ -200,10 +200,10 @@ flowplayer_admin_head();
 if($fp->conf['logoenable']){
 	$html .= '
 		logo: {  
-        url: \''.$fp->conf['logo'].'\',  
+        url: \'http://'.$fp->conf['logo'].'\',  
         fullscreenOnly: '.$fp->conf['fullscreenonly'].',  
         displayTime: 0,
-        linkUrl: \''.$fp->conf['logolink'].'\' 
+        linkUrl: \'http://'.$fp->conf['logolink'].'\' 
     },';
 }
 $html .= '
@@ -562,10 +562,10 @@ plugins: {
 
 if($this->conf['logoenable']){
 	$html .= 'logo: {  
-        url: \''.$this->conf['logo'].'\',  
+        url: \'http://'.$this->conf['logo'].'\',  
         fullscreenOnly: '.$this->conf['fullscreenonly'].',  
         displayTime: 0,
-        linkUrl: \''.$this->conf['logolink'].'\' 
+        linkUrl: \'http://'.$this->conf['logolink'].'\' 
     },';
 }
 
