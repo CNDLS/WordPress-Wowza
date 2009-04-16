@@ -1,5 +1,10 @@
 <?PHP
 
+/**
+ * FlowPlayer for Wordpress
+ * ©2008,2009 David Busby
+ * @see http://creativecommons.org/licenses/by-nc-sa/2.0/uk
+ */
 class flowplayer {
 	
 	function setup(){
@@ -13,12 +18,15 @@ class flowplayer {
 		if(!defined('FLOWPLAYER_COMMERCIAL')){
 			define('FLOWPLAYER_COMMERCIAL',flowplayer::plugin_url().'/flowplayer/commercial/flowplayer.commercial-3.1.0-dev3.swf');
 		}
+		return FLOWPLAYER_COMMERCIAL;
 	}
 	
 	function gpl_url(){
 		if(!defined('FLOWPLAYER_GPL')){
 			define('FLOWPLAYER_GPL',flowplayer::plugin_url().'/flowplayer/gpl/flowplayer-3.1.0-dev3.swf');
 		}
+		
+		return FLOWPLAYER_GPL;
 	}
 	
 	function player(){
@@ -29,6 +37,7 @@ class flowplayer {
 				define('FLOWPLAYER_URL',flowplayer::gpl_url());
 			}
 		}
+		return FLOWPLAYER_URL;
 	}
 	
 	function plugin_url(){
@@ -38,28 +47,39 @@ class flowplayer {
 		return PLUGIN_URL;
 	}
 	
-	function _getkey(){
-		return get_option('flowplayer_key');
-	}
+	function _getbackgroundColor(){ return get_option('flowplayer_backgroundColor'); }		
+	function _getcanvas(){ return get_option('flowplayer_canvas'); }
+	function _getsliderColor(){ return get_option('flowplayer_sliderColor'); }
+	function _getbuttonColor(){ return get_option('flowplayer_buttonColor'); }
+	function _getbuttonOverColor(){ return get_option('flowplayer_buttonOverColor'); }
+	function _getdurationColor(){ return get_option('flowplayer_durationColor'); }
+	function _gettimeColor(){ return get_option('flowplayer_timeColor'); }
+	function _getprogressColor(){ return get_option('flowplayer_progressColor'); }
+	function _getbufferColor(){ return get_option('flowplayer_bufferColor'); }
+	function _getautobuffer(){return get_option('flowplayer_autobuffer');}
+	function _getautoplay(){return get_option('flowplayer_autoplay');}
+	function _getkey(){	return get_option('flowplayer_key');}
 	
-	function _setkey($val){
-		add_option('flowplayer_key',$val);
-	}
+	function _setbackgroundColor($val){ update_option('flowplayer_backgroundColor',$val); }		
+	function _setcanvas($val){ update_option('flowplayer_canvas',$val); }
+	function _setsliderColor($val){ update_option('flowplayer_sliderColor',$val); }
+	function _setbuttonColor($val){ update_option('flowplayer_buttonColor',$val); }
+	function _setbuttonOverColor($val){ update_option('flowplayer_buttonOverColor',$val); }
+	function _setdurationColor($val){ update_option('flowplayer_durationColor',$val); }
+	function _settimeColor($val){ update_option('flowplayer_timeColor',$val); }
+	function _setprogressColor($val){ update_option('flowplayer_progressColor',$val); }
+	function _setbufferColor($val){ update_option('flowplayer_bufferColor',$val); }
+	function _setkey($val){	update_option('flowplayer_key',$val);}
+	function _setautoplay($val){update_option('flowplayer_autoplay', $val);}
+	function _setautobuffer($val){update_option('flowplayer_autobuffer',$val);}
 	
-	function _getautoplay(){
-		return get_option('flowplayer_autoplay');
-	}
-	
-	function _setautoplay($val){
-		add_option('flowplayer_autoplay', $val);
-	}
-	
-	function _getautobuffer(){
-		return get_option('flowplayer_autobuffer');
-	}
-	
-	function _setautobuffer($val){
-		add_option('flowplayer_autobuffer',$val);	
+	function get_nonce(){
+		if(!defined('FLOWPLAYER_NONCE')){
+			define('FLOWPLAYER_NONCE',wp_create_nonce( plugin_basename(__FILE__) ));
+			define('FLOWPLAYER_NONCE_FILE', plugin_basename(__FILE__));
+		}
+		
+		return FLOWPLAYER_NONCE;
 	}
 	
 	function player_head(){
@@ -73,7 +93,7 @@ class flowplayer {
 	}
 	
 	function admin_head(){
-		if(!defined('FLOWPLAYER_ADMIN_JS')){
+		if(!defined('FLOWPLAYER_ADMIN_HEAD')){
 			$html = "\n<!-- Saiweb.co.uk Flowplayer For Wordpress ADMIN Javascript Start -->\n";
  			$html .= '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>';	
  			$html .= "\n".'<script type="text/javascript" src="'.flowplayer::plugin_url().'/js/farbtastic/farbtastic.js"></script>';
@@ -123,15 +143,15 @@ class flowplayer {
 		
 		$html .= 
 			'
-			<input type="hidden" name="flowplayer_backgroundColor" value="'.get_option('flowplayer_backgroundColor').'" />		
-			<input type="hidden" name="flowplayer_canvas" value="'.get_option('flowplayer_canvas').'" />
-			<input type="hidden" name="flowplayer_sliderColor" value="'.get_option('flowplayer_sliderColor').'" />
-			<input type="hidden" name="flowplayer_buttonColor" value="'.get_option('flowplayer_buttonColor').'" />
-			<input type="hidden" name="flowplayer_buttonOverColor" value="'.get_option('flowplayer_buttonOverColor').'" />
-			<input type="hidden" name="flowplayer_durationColor" value="'.get_option('flowplayer_durationColor').'" />
-			<input type="hidden" name="flowplayer_timeColor" value="'.get_option('flowplayer_timeColor').'" />
-			<input type="hidden" name="flowplayer_progressColor" value="'.get_option('flowplayer_progressColor').'" />
-			<input type="hidden" name="flowplayer_bufferColor" value="'.get_option('flowplayer_bufferColor').'" />
+			<input type="hidden" name="flowplayer_backgroundColor" value="'.flowplayer::_getbackgroundColor().'" />		
+			<input type="hidden" name="flowplayer_canvas" value="'.flowplayer::_getcanvas().'" />
+			<input type="hidden" name="flowplayer_sliderColor" value="'.flowplayer::_getsliderColor().'" />
+			<input type="hidden" name="flowplayer_buttonColor" value="'.flowplayer::_getbuttonColor().'" />
+			<input type="hidden" name="flowplayer_buttonOverColor" value="'.flowplayer::_getbuttonOverColor().'" />
+			<input type="hidden" name="flowplayer_durationColor" value="'.flowplayer::_getdurationColor().'" />
+			<input type="hidden" name="flowplayer_timeColor" value="'.flowplayer::_gettimeColor().'" />
+			<input type="hidden" name="flowplayer_progressColor" value="'.flowplayer::_getprogressColor().'" />
+			<input type="hidden" name="flowplayer_bufferColor" value="'.flowplayer::_getbufferColor().'" />
 		';
 		return $html;
 	}
@@ -145,16 +165,16 @@ class flowplayer {
 				'.(flowplayer::_getkey()?'key:\''.flowplayer::_getkey().'\',':'').'
 				plugins: {
   					 controls: {    					
-      					buttonOverColor: \''.$fp->conf['buttonOverColor'].'\',
-      					sliderColor: \''.$fp->conf['sliderColor'].'\',
-      					bufferColor: \''.$fp->conf['bufferColor'].'\',
+      					buttonOverColor: \''.flowplayer::_getbuttonOverColor().'\',
+      					sliderColor: \''.flowplayer::_getsliderColor().'\',
+      					bufferColor: \''.flowplayer::_getbufferColor().'\',
       					sliderGradient: \'none\',
       					progressGradient: \'medium\',
-      					durationColor: \''.$fp->conf['durationColor'].'\',
-      					progressColor: \''.$fp->conf['progressColor'].'\',
-      					backgroundColor: \''.$fp->conf['backgroundColor'].'\',
-      					timeColor: \''.$fp->conf['timeColor'].'\',
-      					buttonColor: \''.$fp->conf['buttonColor'].'\',
+      					durationColor: \''.flowplayer::_getdurationColor().'\',
+      					progressColor: \''.flowplayer::_getprogressColor().'\',
+      					backgroundColor: \''.flowplayer::_getbackgroundColor().'\',
+      					timeColor: \''.flowplayer::_gettimeColor().'\',
+      					buttonColor: \''.flowplayer::_getbuttonColor().'\',
       					backgroundGradient: \'none\',
       					bufferGradient: \'none\',
    						opacity:1.0
@@ -162,8 +182,8 @@ class flowplayer {
 				},
 				clip: {
 					url:\'http://saiweb.co.uk/wp-content/videos/wpfp_config_demo.mp4\',
-					autoPlay: '.(flowplayer::_getautoplay()?'true':'false').',
-       				autoBuffering: '.(flowplayer::_getautobuffer()?'true':'false').'
+					autoPlay: '.(flowplayer::_getautoplay()=='true'?'true':'false').',
+       				autoBuffering: '.(flowplayer::_getautobuffer()=='true'?'true':'false').'
 				},';
 if($fp->conf['logoenable'] == 'true'){
 	$html .= '
@@ -176,7 +196,7 @@ if($fp->conf['logoenable'] == 'true'){
 }
 $html .= '
 				canvas: {
-					backgroundColor:\''.$fp->conf['backgroungColor'].'\'
+					backgroundColor:\''.flowplayer::_getcanvas().'\'
 				},
 				onLoad: function() {
 					$(":input[name=tgt]").removeAttr("disabled");		
@@ -188,6 +208,7 @@ $html .= '
 		//colour picker call back to api and hidden vars		
 		$(\'#colourpicker\').farbtastic(function(color){
 			var tgt = $(":input[name=tgt]:checked").val();
+			tgtArr = tgt.split(\'_\');
 			//set to hidden input
 			$(":input[name="+tgt+"]").val(color);
 			var player = $f("player");
@@ -195,14 +216,13 @@ $html .= '
 			if (player.isLoaded()) {						
 
 			// adjust canvas bgcolor. uses undocumented API call. not stabilized yet
-			if (tgt == \'canvas\') {					
+			if (tgtArr[1] == \'canvas\') {					
 				player._api().fp_css("canvas", {backgroundColor:color});
 				
 			// adjust controlbar coloring
 			} else {
-	
 				window.canvasColor = color;
-				player.getControls().css(tgt, color);	
+				player.getControls().css(tgtArr[1], color);
 			}			
 			
 		} else {
@@ -223,21 +243,22 @@ $html .= '
 							<tr>
 								<td>AutoPlay: </td>
 								<td>
-		 							<select name="autoplay">
+		 							<select name="flowplayer_autoplay">
 										'.flowplayer::bool_select(flowplayer::_getautoplay()).'
 		 							</select>
+		 							
 		 						</td>
 							</tr>
 							<tr>
 								<td>Commercial License Key: </td>
 								<td>
-									<input type="text" size="20" name="key" id="key" value="'.flowplayer::_getkey().'" />	
+									<input type="text" size="20" name="flowplayer_key" id="flowplayer_key" value="'.flowplayer::_getkey().'" />	
 									(Required for certain features i.e. custom logo)
 								</td>
 							</tr>
 							<tr>
 								<td>Auto Buffering:</td>
-								<td><select name="autobuffer">'.flowplayer::bool_select(get_option('flowplayer_autobuffer')).'</select></td>
+								<td><select name="flowplayer_autobuffer">'.flowplayer::bool_select(flowplayer::_getautobuffer()).'</select></td>
 							</tr>
 							<tr>
 								<td><div id="colourpicker"></div></td>
@@ -252,9 +273,9 @@ $html .= '
 								</td>
 							</tr>
 						</table>
-						<input type="hidden" name="flowplayer_noncename" id="flowplayer_noncename" value="'.wp_create_nonce( plugin_basename(__FILE__) ).'" />
+						<input type="hidden" name="flowplayer_noncename" id="flowplayer_noncename" value="'.flowplayer::get_nonce().'" />
 						</form>
-						div id="player" style="width:300px;height:200px;"></div>
+						<div id="player" style="width:300px;height:200px;"></div>
 					</div>
 
 

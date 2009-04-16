@@ -16,8 +16,15 @@ flowplayer::setup();
 /**
  * WP Hooks
  */
+ //plugin setting menu
  add_action('admin_menu', 'flowplayer_admin');
+ //javascript head
  add_action('wp_head', 'flowplayer_head');
+ //activate plugin callback
+ register_activation_hook(__FILE__,'flowplayer_activate');
+ //deactivate plugin callback
+ register_deactivation_hook(__FILE__,'flowplayer_deactivate');
+ 
  /**
   * END WP Hooks
   */
@@ -34,26 +41,70 @@ function flowplayer_admin(){
 	}
 }
 
+/**
+ * deactivate plugin callback function removes wordpress options
+ * @todo add cleanup of post meta data?
+ */
+function flowplayer_deactivate(){
+	delete_option('flowplayer_autoplay');
+    delete_option('flowplayer_key');
+    delete_option('flowplayer_autobuffer');
+    delete_option('flowplayer_backgroundColor');	
+	delete_option('flowplayer_canvas');
+	delete_option('flowplayer_sliderColor');
+	delete_option('flowplayer_buttonColor');
+	delete_option('flowplayer_buttonOverColor');
+	delete_option('flowplayer_durationColor');
+	delete_option('flowplayer_timeColor');
+	delete_option('flowplayer_progressColor');
+	delete_option('flowplayer_bufferColor');
+	delete_option('flowplayer_logo');
+	delete_option('flowplayer_logolink');
+}
+
+/**
+ * Plugin activate callback, sets up wordpress options
+ */
+function flowplayer_activate(){
+	add_option('flowplayer_autoplay');
+    add_option('flowplayer_key');
+    add_option('flowplayer_autobuffer');
+    add_option('flowplayer_backgroundColor');	
+	add_option('flowplayer_canvas');
+	add_option('flowplayer_sliderColor');
+	add_option('flowplayer_buttonColor');
+	add_option('flowplayer_buttonOverColor');
+	add_option('flowplayer_durationColor');
+	add_option('flowplayer_timeColor');
+	add_option('flowplayer_progressColor');
+	add_option('flowplayer_bufferColor');
+	add_option('flowplayer_logo');
+	add_option('flowplayer_logolink');
+}
+
+/**
+ * Render the plugin settings menu
+ */
 function flowplayer_settings(){
 	echo flowplayer::admin_head();
-	
-	if (wp_verify_nonce( $_POST['flowplayer_noncename'], plugin_basename(__FILE__) )) {
-    	add_option('flowplayer_autoplay',$_POST['flowplayer_autoplay']);
-    	add_option('flowplayer_key',$_POST['flowplayer_key']);
-    	add_option('flowplayer_autobuffer',$_POST['flowplayer_autobuffer']);
-    	add_option('flowplayer_backgroundColor'.$fp->conf['backgroundColor']);	
-		add_option('flowplayer_canvas',$_POST['flowplayer_canvas']);
-		add_option('flowplayer_sliderColor',$_POST['flowplayer_sliderColor']);
-		add_option('flowplayer_buttonColor',$_POST['flowplayer_buttonColor']);
-		add_option('flowplayer_buttonOverColor',$_POST['flowplayer_buttonOverColor']);
-		add_option('flowplayer_durationColor',$_POST['flowplayer_durationColor']);
-		add_option('flowplayer_timeColor',$_POST['flowplayer_timeColor']);
-		add_option('flowplayer_progressColor',$_POST['flowplayer_progressColor']);
-		add_option('flowplayer_bufferColor',$_POST['flowplayer_bufferColor']);
-		add_option('flowplayer_logo',$_POST['flowplayer_logo']);
-		add_option('flowplayer_logolink',$_POST['flowplayer_logolink']);
+	flowplayer::get_nonce();
+	if (wp_verify_nonce( $_POST['flowplayer_noncename'], FLOWPLAYER_NONCE_FILE )) {
+    	flowplayer::_setautoplay($_POST['flowplayer_autoplay']);
+    	flowplayer::_setkey($_POST['flowplayer_key']);
+    	flowplayer::_setautobuffer($_POST['flowplayer_autobuffer']);
+    	flowplayer::_setbackgroundColor($_POST['flowplayer_backgroundColor']);	
+		flowplayer::_setcanvas($_POST['flowplayer_canvas']);
+		flowplayer::_setsliderColor($_POST['flowplayer_sliderColor']);
+		flowplayer::_setbuttonColor($_POST['flowplayer_buttonColor']);
+		flowplayer::_setbuttonOverColor($_POST['flowplayer_buttonOverColor']);
+		flowplayer::_setdurationColor($_POST['flowplayer_durationColor']);
+		flowplayer::_settimeColor($_POST['flowplayer_timeColor']);
+		flowplayer::_setprogressColor($_POST['flowplayer_progressColor']);
+		flowplayer::_setbufferColor($_POST['flowplayer_bufferColor']);
+		flowplayer::_setlogo($_POST['flowplayer_logo']);
+		flowplayer::_setlogolink($_POST['flowplayer_logolink']);
   	}
-  	
+ 
   	echo flowplayer::flowplayer_settings();
   	
 }  
