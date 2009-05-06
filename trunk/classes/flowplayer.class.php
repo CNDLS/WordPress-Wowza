@@ -8,12 +8,31 @@
 class flowplayer {
 	
 	function setup(){
+		global $post;
+		
 		flowplayer::plugin_url();
 		flowplayer::commercial_url();
 		flowplayer::gpl_url();
 		flowplayer::player();
+		
+		if(!defined('FLOWPLAYER_META')){
+			define('FLOWPLAYER_META','flowplayer_meta');
+		}
+		
+		if(!defined('FLOWPLAYER_DATA')){
+			define('FLOWPLAYER_DATA', get_post_meta($post->ID, FLOWPLAYER_META));
+		}
 	}
 	
+	function data_parse($data){
+		$data = explode('|',$data);
+		$ret = array(
+			'media' => $data[0],
+			'width' => $data[1],
+			'height' => $data[2]
+		);
+		return $ret;
+	}
 	function commercial_url(){
 		if(!defined('FLOWPLAYER_COMMERCIAL')){
 			define('FLOWPLAYER_COMMERCIAL',flowplayer::plugin_url().'/flowplayer/commercial/flowplayer.commercial-3.1.0-dev3.swf');
@@ -59,6 +78,8 @@ class flowplayer {
 	function _getautobuffer(){return get_option('flowplayer_autobuffer');}
 	function _getautoplay(){return get_option('flowplayer_autoplay');}
 	function _getkey(){	return get_option('flowplayer_key');}
+	function _getlogo(){ return get_option('flowplayer_logo');}
+	function _getlogolink(){ return get_option('flowplayer_logolink');}
 	
 	function _setbackgroundColor($val){ update_option('flowplayer_backgroundColor',$val); }		
 	function _setcanvas($val){ update_option('flowplayer_canvas',$val); }
@@ -72,6 +93,8 @@ class flowplayer {
 	function _setkey($val){	update_option('flowplayer_key',$val);}
 	function _setautoplay($val){update_option('flowplayer_autoplay', $val);}
 	function _setautobuffer($val){update_option('flowplayer_autobuffer',$val);}
+	function _setlogo($val){update_option('flowplayer_logo',$val);}
+	function _setlogolink($val){update_option('flowplayer_logolink',$val);}
 	
 	function get_nonce(){
 		if(!defined('FLOWPLAYER_NONCE')){
@@ -281,6 +304,11 @@ $html .= '
 
 ';
 		return $html;
+	}
+	
+	function build_player(){
+		global $post;
+		
 	}
 }
 
