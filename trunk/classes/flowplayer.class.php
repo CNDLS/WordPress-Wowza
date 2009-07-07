@@ -3,7 +3,7 @@
 /**
  * FlowPlayer for Wordpress
  * ©2008,2009 David Busby
- * @see http://creativecommons.org/licenses/by-nc-sa/2.0/uk
+ * @see license.tct GPLv3
  */
 class flowplayer {
 	

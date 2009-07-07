@@ -18,7 +18,14 @@ The version of flowplayer provided with this plugin is version 3.1.1 and is prov
 
 As of version 2.0.1.3, the bundeled version is the commercial version of flowplayer distributed with permission from the authors, this will allows owners of a commercial key to access commercial features.
 
+Pre 2.0.9.9
+
 Plugin is provided under CC License: http://creativecommons.org/licenses/by-nc-sa/2.0/uk
+
+Post 2.0.9.9
+
+plugin is provided under the GPLv3 license, see the bundled license.txt file.
+
 
 The admin menu as of plugin version 2.0.1.0 uses farbtastic 1.2 as provided under GPL here: http://acko.net/dev/farbtastic
 
