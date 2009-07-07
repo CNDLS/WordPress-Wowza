@@ -3,7 +3,7 @@
 Plugin Name: Flowplayer for Wordpress
 Plugin URI: http://saiweb.co.uk/wordpress-flowplayer
 Description: Flowplayer Wordpress Extension
-Version: 2.1.0.0-DEV-PREVIEW
+Version: 2.0.9.9 - Pre 2.1.0.0 Release
 Author: David Busby
 Author URI: http://saiweb.co.uk
 */
@@ -19,9 +19,11 @@ flowplayer::setup();
  //plugin setting menu
  add_action('admin_menu', 'flowplayer_admin');
  //save menu callback
- add_action('save_post', 'fp_save');
+// add_action('save_post', 'fp_save');
  //javascript head
  add_action('wp_head', 'flowplayer_head');
+ //content callback
+ add_filter('the_content','flowplayer_content');
  //activate plugin callback
  register_activation_hook(__FILE__,'flowplayer_activate');
  //deactivate plugin callback
@@ -30,6 +32,12 @@ flowplayer::setup();
  /**
   * END WP Hooks
   */
+
+
+function flowplayer_content($content){
+	$content = flowplayer::legacy_hook($content);
+	return $content;
+}
 
 function flowplayer_admin(){
 	if (function_exists('add_submenu_page')) {
@@ -41,30 +49,24 @@ function flowplayer_admin(){
 							'flowplayer_settings'
 						);
 	}
-	
+	/*
 	//page meta box
 	add_meta_box( 'flowplayer_box', __( 'Wordpress Flowplayer', 'Wordpress Flowplayer' ), 
                 'flowplayer_box', 'page', 'advanced' );
     //post meta box
     add_meta_box( 'flowplayer_box', __( 'Wordpress Flowplayer', 'Wordpress Flowplayer' ), 
-                'flowplayer_box', 'post', 'advanced' );
+                'flowplayer_box', 'post', 'advanced' );*/
 }
 
 function fp_save($postID){
 	if (!wp_verify_nonce( $_POST['fp_noncename'], plugin_basename(__FILE__) )) {
 		return $postID;
+	} else {
+		$i=1;
+		while(!empty($_POST['fpMedia_'.$i])){
+			$i++; 
+		}
 	}
-	
-	
-}
-
-function fp_render_input($cur, $data=false){
-?>
-<h2>Media <?PHP echo $cur; ?></h2>
-<p><label for="fpMedia_<?PHP echo $cur; ?>">Media <?PHP echo $cur; ?>&nbsp;&nbsp;</label><input name="fpMedia_<?PHP echo $cur; ?>" id="fpMedia_<?PHP echo $cur; ?>" type="text" value="<?PHP echo (is_array($data)?$data['media']:''); ?>" /></p>
-<p><label for="fpWidth_<?PHP echo $cur; ?>">Width <?PHP echo $cur; ?>&nbsp;&nbsp;</label><input name="fpWidth_<?PHP echo $cur; ?>" id="fpWidth_<?PHP echo $cur; ?>" type="text" size="5" value="<?PHP echo (is_array($data)?$data['width']:''); ?>" /></p>
-<p><label for="fpHeight_<?PHP echo $cur; ?>">Height <?PHP echo $cur; ?>&nbsp;&nbsp;</label><input name="fpHeight_<?PHP echo $cur; ?>" id="fpHeight_<?PHP echo $cur; ?>" type="text" size="5" value="<?PHP echo (is_array($data)?$data['height']:''); ?>" /></p>
-<?PHP
 }
 
 function flowplayer_box(){
@@ -78,22 +80,8 @@ function flowplayer_box(){
 </script>
 <p>You can configure Flowplayer using this box, any setting applied here will be for this post only</p>
 <p><img src="<?PHP bloginfo('siteurl'); ?>/wp-admin/images/media-button-video.gif" id="fpAdd" style="cursor:pointer" /></p>
-<p>Currently you can add up to 5 media, you will be able to add more in the next release</p>
 <input type="hidden" name="fp_noncename" id="fp_noncename" value="<?PHP echo wp_create_nonce( plugin_basename(__FILE__) ); ?>" />
 <?PHP
-	$lim = 5;
-	$count = count(FLOWPLAYER_DATA);
-	$cur = 1;
-	if(is_array(FLOWPLAYER_DATA)){
-		foreach(FLOWPLAYER_DATA as $data){
-			fp_render_input($cur, flowplayer::data_parse($data));
-			$cur++;
-		}
-	}
-	while($cur <= $lim){
-		fp_render_input($cur);	
-		$cur++;		
-	}
 }
 /**
  * deactivate plugin callback function removes wordpress options
