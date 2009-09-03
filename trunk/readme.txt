@@ -3,7 +3,7 @@ Contributors: d.busby
 Donate link: http://www.saiweb.co.uk/wordpress-flowplayer#donate
 Tags: flowplayer, mp4, flv, h264, libx264, HD, streaming, flow, player
 Requires at least: 2.7
-Tested up to: 2.8
+Tested up to: 2.8.4
 Stable tag: 2.0.9.9
 
 A Flowplayer plugin for wordpress.
@@ -50,6 +50,7 @@ e.g.
 3. Place [FLOWPLAYER=media.flv,600,450] where media.flv is your media file path, this can be realative or a full http url, followed by the width,height.
 4. Updates are made available automatically via the wordpress upgrade system, please ensure you read the change log before upgrading.
 5. You can make changes to the default settings by visiting the configuration page i.e. http://your_website_here/wp-admin/options-general.php?page=flowplayer.php
+6. As of 2.0.9.9 you can now specify playlists, i.e. [FLOWPLAYER=media1.flv|media2.flv,600,450] each item is seperated using the pipe |
 
 == Frequently Asked Questions ==
 
@@ -57,7 +58,7 @@ e.g.
 
 This plugin is incompatible with releases 4.x of PHP, please update your PHP installation to 5.x.
 
-NOTE: versions 2.0.9.9 _MAY_ be compatible with php 4.x this is untested at this time.
+NOTE: versions 2.0.9.9 and higher _MAY_ be compatible with php 4.x this is untested at this time, there is no planned support for PHP 4.x
 
 = I have another error / problem / question / suggestion =
 

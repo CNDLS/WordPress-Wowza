@@ -218,6 +218,7 @@ if(strlen(flowplayer::_getlogo()) > 0){
 		logo: {  
         url: \''.flowplayer::_getlogo().'\',  
         displayTime: 0,
+        fullscreenOnly: false,
         linkUrl: \''.flowplayer::_getlogolink().'\' 
     },';
 }
@@ -342,7 +343,7 @@ $html .= '
 	
 	function legacy_hook($content){
 		
-		$regex = '/\[FLOWPLAYER=([a-z0-9\:\.\-\&\_\/]+)\,([0-9]+)\,([0-9]+)\]/i';
+		$regex = '/\[FLOWPLAYER=([a-z0-9\:\.\-\&\_\/\|]+)\,([0-9]+)\,([0-9]+)\]/i';
 		$matches = array();
 	
 		preg_match_all($regex, $content, $matches);
@@ -361,6 +362,7 @@ $html .= '
 			 * Fix #2 
 			 * @see http://trac.saiweb.co.uk/saiweb/ticket/2
 			 */
+			$list = explode('|',$media);
 			$hash = md5($media.flowplayer::_salt());
 			$html = '<div id="saiweb_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;"></div>';
 			$html .= '<script language="Javascript" type="text/javascript">
@@ -383,18 +385,36 @@ $html .= '
       					bufferGradient: \'none\',
    						opacity:1.0
    						}
-				},
-				clip: {
+				},';
+				
+	if(count($list) > 1){
+		$html .= '
+			clip: {
+					autoPlay: '.(flowplayer::_getautoplay()=='true'?'true':'false').',
+       				autoBuffering: '.(flowplayer::_getautobuffer()=='true'?'true':'false').'
+				},';
+		$html .= 'playlist:[
+				 
+				';
+				foreach($list as $item){
+					$html .= '{url: \''.$item.'\'},'."\n";
+				}
+				$html .= '],'."\n";
+	} else {
+			$html .= '
+			clip: {
 					url:\''.$media.'\',
 					autoPlay: '.(flowplayer::_getautoplay()=='true'?'true':'false').',
        				autoBuffering: '.(flowplayer::_getautobuffer()=='true'?'true':'false').'
-				},
-				'.(flowplayer::_getkey()?'key:\''.flowplayer::_getkey().'\',':'');
+				},';
+	}
+		$html .= (flowplayer::_getkey()?'key:\''.flowplayer::_getkey().'\',':'');
 if(strlen(flowplayer::_getlogo()) > 0){
 	$html .= '
 		logo: {  
         url: \''.flowplayer::_getlogo().'\',  
         displayTime: 0,
+        fullscreenOnly: false,
         linkUrl: \''.flowplayer::_getlogolink().'\' 
     },';
 }
