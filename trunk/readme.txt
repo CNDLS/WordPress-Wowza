@@ -10,6 +10,9 @@ A Flowplayer plugin for wordpress.
 
 == Description ==
 
+NOTE: As of version 2.0.9.9 all settings are stored in wordpress meta data as such if you are upgrading to 2.0.9.9 or higher from an earlier verison
+you will have to re-enter your settings.
+
 Homepage: http://www.saiweb.co.uk/wordpress-flowplayer
 
 NOTE: /wp-content/plugins/word-press-flow-player/saiweb_wpfp.conf has now been removed, Meta data is now in use, you will have to re-enter your settings!
