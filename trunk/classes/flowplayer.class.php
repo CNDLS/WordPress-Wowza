@@ -213,13 +213,12 @@ class flowplayer {
        				autoBuffering: '.(flowplayer::_getautobuffer()=='true'?'true':'false').'
 				},
 				'.(flowplayer::_getkey()?'key:\''.flowplayer::_getkey().'\',':'');
-if($fp->conf['logoenable'] == 'true'){
+if(strlen(flowplayer::_getlogo()) > 0){
 	$html .= '
 		logo: {  
-        url: \'http://'.$fp->conf['logo'].'\',  
-        fullscreenOnly: '.$fp->conf['fullscreenonly'].',  
+        url: \'http://'.flowplayer::_getlogo().'\',  
         displayTime: 0,
-        linkUrl: \'http://'.$fp->conf['logolink'].'\' 
+        linkUrl: \'http://'.flowplayer::_getlogolink().'\' 
     },';
 }
 $html .= '
@@ -391,13 +390,12 @@ $html .= '
        				autoBuffering: '.(flowplayer::_getautobuffer()=='true'?'true':'false').'
 				},
 				'.(flowplayer::_getkey()?'key:\''.flowplayer::_getkey().'\',':'');
-if($fp->conf['logoenable'] == 'true'){
+if(strlen(flowplayer::_getlogo()) > 0){
 	$html .= '
 		logo: {  
-        url: \'http://'.$fp->conf['logo'].'\',  
-        fullscreenOnly: '.$fp->conf['fullscreenonly'].',  
+        url: \'http://'.flowplayer::_getlogo().'\',  
         displayTime: 0,
-        linkUrl: \'http://'.$fp->conf['logolink'].'\' 
+        linkUrl: \'http://'.flowplayer::_getlogolink().'\' 
     },';
 }
 $html .= '
