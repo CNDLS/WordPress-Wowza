@@ -114,7 +114,8 @@ class flowplayer {
  			$html .= "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript END -->\n";
 			define('FLOWPLAYER_HEAD', $html);	
 		}		
-		return FLOWPLAYER_HEAD;
+		if(!is_admin()){return FLOWPLAYER_HEAD;}
+		else {return '';}
 	}
 	
 	function admin_head(){
