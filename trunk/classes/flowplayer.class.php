@@ -108,6 +108,7 @@ class flowplayer {
 	function player_head(){
 		if(!defined('FLOWPLAYER_HEAD')){
 			$html = "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript Start -->\n";
+			$html .= "\n".'<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>';
 			$html .= "\n".'<script type="text/javascript">WPFP = jQuery.noConflict(); $ = WPFP; </script>';
 			$html .= '<script type="text/javascript" src="'.flowplayer::plugin_url().'/flowplayer/flowplayer-3.1.1.min.js"></script>';
  			$html .= "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript END -->\n";
