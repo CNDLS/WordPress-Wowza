@@ -289,6 +289,20 @@ $html .= '
 								</td>
 							</tr>
 							<tr>
+								<td>Logo URL (only works with valid license key): </td>
+								<td>
+									<input type="text" size="20" name="flowplayer_logo" id="flowplayer_logo" value="'.flowplayer::_getlogo().'" />	
+									(Required for certain features i.e. custom logo)
+								</td>
+							</tr>
+							<tr>
+								<td>Logo Link (Only works with valid license key): </td>
+								<td>
+									<input type="text" size="20" name="flowplayer_logolink" id="flowplayer_logolink" value="'.flowplayer::_getlogolink().'" />	
+									(Required for certain features i.e. custom logo)
+								</td>
+							</tr>
+							<tr>
 								<td>Auto Buffering:</td>
 								<td><select name="flowplayer_autobuffer">'.flowplayer::bool_select(flowplayer::_getautobuffer()).'</select></td>
 							</tr>
@@ -375,7 +389,7 @@ $html .= '
        				autoBuffering: '.(flowplayer::_getautobuffer()=='true'?'true':'false').'
 				},
 				'.(flowplayer::_getkey()?'key:\''.flowplayer::_getkey().'\',':'');
-/*if($fp->conf['logoenable'] == 'true'){
+if($fp->conf['logoenable'] == 'true'){
 	$html .= '
 		logo: {  
         url: \'http://'.$fp->conf['logo'].'\',  
@@ -383,7 +397,7 @@ $html .= '
         displayTime: 0,
         linkUrl: \'http://'.$fp->conf['logolink'].'\' 
     },';
-}*/
+}
 $html .= '
 				canvas: {
 					backgroundColor:\''.flowplayer::_getcanvas().'\'
