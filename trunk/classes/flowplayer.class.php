@@ -289,17 +289,17 @@ $html .= '
 								</td>
 							</tr>
 							<tr>
-								<td>Logo URL (only works with valid license key): </td>
+								<td>Logo URL: </td>
 								<td>
 									<input type="text" size="20" name="flowplayer_logo" id="flowplayer_logo" value="'.flowplayer::_getlogo().'" />	
-									(Required for certain features i.e. custom logo)
+									(only works with valid license key)
 								</td>
 							</tr>
 							<tr>
-								<td>Logo Link (Only works with valid license key): </td>
+								<td>Logo Link: </td>
 								<td>
 									<input type="text" size="20" name="flowplayer_logolink" id="flowplayer_logolink" value="'.flowplayer::_getlogolink().'" />	
-									(Required for certain features i.e. custom logo)
+									(only works with valid license key)
 								</td>
 							</tr>
 							<tr>
