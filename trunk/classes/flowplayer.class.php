@@ -216,9 +216,9 @@ class flowplayer {
 if(strlen(flowplayer::_getlogo()) > 0){
 	$html .= '
 		logo: {  
-        url: \'http://'.flowplayer::_getlogo().'\',  
+        url: \''.flowplayer::_getlogo().'\',  
         displayTime: 0,
-        linkUrl: \'http://'.flowplayer::_getlogolink().'\' 
+        linkUrl: \''.flowplayer::_getlogolink().'\' 
     },';
 }
 $html .= '
@@ -393,9 +393,9 @@ $html .= '
 if(strlen(flowplayer::_getlogo()) > 0){
 	$html .= '
 		logo: {  
-        url: \'http://'.flowplayer::_getlogo().'\',  
+        url: \''.flowplayer::_getlogo().'\',  
         displayTime: 0,
-        linkUrl: \'http://'.flowplayer::_getlogolink().'\' 
+        linkUrl: \''.flowplayer::_getlogolink().'\' 
     },';
 }
 $html .= '
