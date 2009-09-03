@@ -21,7 +21,7 @@ flowplayer::setup();
  //save menu callback
 // add_action('save_post', 'fp_save');
  //javascript head
- add_filter('wp_head', 'flowplayer_head');
+ add_action('wp_head', 'flowplayer_head', 20);
  //content callback
  add_filter('the_content','flowplayer_content');
  //activate plugin callback
@@ -151,8 +151,8 @@ function flowplayer_settings(){
   	
 }  
 
-function flowplayer_head($content){
-	return $content.flowplayer::player_head();
+function flowplayer_head(){
+	echo flowplayer::player_head();
 } 
  
 
