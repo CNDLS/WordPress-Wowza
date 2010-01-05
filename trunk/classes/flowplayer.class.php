@@ -19,9 +19,9 @@ class flowplayer {
 			define('FLOWPLAYER_META','flowplayer_meta');
 		}
 		
-		if(!defined('FLOWPLAYER_DATA')){
+		/*if(!defined('FLOWPLAYER_DATA')){
 			define('FLOWPLAYER_DATA', get_post_meta($post->ID, FLOWPLAYER_META));
-		}
+		}*/
 	}
 	
 	function data_parse($data){

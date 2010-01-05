@@ -3,7 +3,7 @@
 Plugin Name: Flowplayer for Wordpress
 Plugin URI: http://saiweb.co.uk/wordpress-flowplayer
 Description: Flowplayer Wordpress Extension
-Version: 2.0.9.9
+Version: 2.0.9.91
 Author: David Busby
 Author URI: http://saiweb.co.uk
 */
