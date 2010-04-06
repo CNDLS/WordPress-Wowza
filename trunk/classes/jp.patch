@@ -1,0 +1,57 @@
+ndex: flowplayer.class.php
+===================================================================
+--- flowplayer.class.php	(revision 34746)
++++ flowplayer.class.php	(working copy)
+@@ -365,7 +365,8 @@
+ 			$list = explode('|',$media);
+ 			$hash = md5($media.flowplayer::_salt());
+ 			$html = '<div id="saiweb_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;"></div>';
+-			$html .= '<script language="Javascript" type="text/javascript">
++			$html .= '<script type="text/javascript">
++<!--
+ 	WPFP(document).ready(function() {
+ 		//load player
+ 		$f("saiweb_'.$hash.'", "'.(flowplayer::_getkey()?flowplayer::commercial_url():flowplayer::gpl_url()).'", {
+@@ -388,17 +389,29 @@
+ 				},';
+ 				
+ 	if(count($list) > 1){
++		$auto_play=('true'==flowplayer::_getautoplay());
++		$m=array();
++		preg_match('/\.([^\.]*)$/', $list[0], $m);
++		$extension_0=strtolower($m[1]);
++		preg_match('/\.([^\.]*)$/', $list[1], $m);
++		$extension_1=strtolower($m[1]);
++		$image_extensions_regex='/^(jpg|gif|jpeg|png)$/';
++		$has_preview_image=(preg_match($image_extensions_regex, $extension_0) && !preg_match($image_extensions_regex, $extension_1)); // first is image, next is not
++		if($has_preview_image) $auto_play=true;
+ 		$html .= '
+ 			clip: {
+-					autoPlay: '.(flowplayer::_getautoplay()=='true'?'true':'false').',
++					autoPlay: '.($auto_play?'true':'false').',
+        				autoBuffering: '.(flowplayer::_getautobuffer()=='true'?'true':'false').'
+ 				},';
+ 		$html .= 'playlist:[
+ 				 
+ 				';
++				$cnt=0;
+ 				foreach($list as $item){
+-					$html .= '{url: \''.$item.'\'},'."\n";
++					$html .= '{url: \''.$item.'\''.($has_preview_image && $cnt ? ', autoPlay: false' : '').'},'."\n";
++					$cnt++;
+ 				}
++				$html=substr($html, 0, strlen($html)-2)."\n"; // strip trailing comma to save IE from complaining
+ 				$html .= '],'."\n";
+ 	} else {
+ 			$html .= '
+@@ -422,7 +435,9 @@
+ 				canvas: {
+ 					backgroundColor:\''.flowplayer::_getcanvas().'\'
+ 				}})
+-			});</script>
++			});
++//-->
++</script>
+ 				';
+ 				
+ 		return $html;	

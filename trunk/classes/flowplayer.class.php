@@ -163,7 +163,7 @@ class flowplayer {
 	
 	function flowplayer_colours(){
 		$html ='<ul>
-		<li><input disabled type="radio" name="tgt" value="flowplayer_backgroundColor" checked /> controlbar</li>		
+		<li><input disabled type="radio" name="tgt" value="flowplayer_backgroundColor" checked /><input type="text" name="flowplayer_backgroundColor" value="'.flowplayer::_getbackgroundColor().'" /> controlbar</li>		
 		<li><input disabled type="radio" name="tgt" value="flowplayer_canvas" /> canvas</li>
 		<li><input disabled type="radio" name="tgt" value="flowplayer_sliderColor" /> sliders</li>
 		<li><input disabled type="radio" name="tgt" value="flowplayer_buttonColor" /> buttons</li>
