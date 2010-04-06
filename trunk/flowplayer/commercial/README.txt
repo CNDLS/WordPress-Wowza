@@ -1,5 +1,65 @@
 Version history:
 
+3.1.5
+-----
+Fixes:
+- The player went to a locked state when resuming playback after a period that was long enought to send the
+netConnection to an invalid state. Now when resuming playback on an invalid connection the clip starts again from
+the beginning. This is only when using RTMP connections and does not affect progressive download playback.
+- Custom netConnect and netStream events did not pass the info object to JS listeners
+
+3.1.4
+-----
+Fixes:
+- player did not initialize if the controlbar plugin was disabled and if the play button overlay was disabled with play: null
+- works properly without cachebusting on IE
+- RSS playlist parsing now respects the isDefault attribute used in mRSS media group items
+- Fixed passing of connection arguments
+
+3.1.3
+-----
+- enhancements to RSS playlist parsing: Now skips all media:content that have unsupported types. Now the type attribute
+of the media:content element is mandatory and has to be present in the RSS file
+- Possibility to pass a RSS file name with playFeed("playlist.rss") and setPlaylist("playlist.rss") calls.
+- changes to the ConnectionProvider and URLResolver APIs
+- Now automatically uses a plugin that is called 'rtmp' for all clips that have the rtmp-protocol in their URLs.
+- Added possibility to specify all clip properties in an RSS playlist
+
+Fixes:
+- the result of URL resolvers in now cached, and the resolvers will not be used again when a clip is replayed
+- some style properties like 'backgroundGradient' had no effect in config
+- video goes tiny on Firefox: http://flowplayer.org/forum/8/23226
+- RSS playlists: The 'type' attribute value 'audio/mp3' in the media:content element caused an error.
+- Dispatches onMetadata() if an URL resolver changes the clip URL (changes to a different file)
+- error codes and error message were not properly passed to onEvent JS listeners
+
+3.1.2
+-----
+- The domain of the logo url must the same domain from where the player SWF is loaded from.
+- Fullscreen can be toggled by doublclick on the video area.
+Fixes:
+- Player was not initialized correctly when instream playlists were used and the provider used in the instream clips was defined in the common clip.
+- A separator in the Context Menu made the callbacks in the following menu items out of order. Related forum post: http://flowplayer.org/forum/8/22541
+- the width and height settings of a logo were ignored if the logo was a sWF file
+- volume control and mute/unmute were not working after an instream clip had been played
+- now possible to use RTMP for mp3 files
+- Issue 12: cuepointMultiplier was undefined in the clip object set to JS event listeners
+- Issue 14: onBeforeStop was unnecessarily fired when calling setPlaylist() and the player was not playing,
+            additionally onStop was never fired even if onBeforeStop was
+- fixed screen vertical placement problems that reappeared with 3.1.1
+- The rotating animation now has the same size and position as it has after initialized
+
+3.1.1
+-----
+- External configuration files
+- Instream playback
+- Added toggleFullscreen() the API
+- Possibility to specify controls configuration in clips
+- Seek target position is now sent in the onBeforeSeek event
+Fixes:
+- The screen size was initially too small on Firefox (Mac)
+- Did not persist a zero volume value: http://www.flowplayer.org/forum/8/18413
+
 3.1.0
 -----
 New features:

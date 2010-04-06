@@ -35,14 +35,14 @@ class flowplayer {
 	}
 	function commercial_url(){
 		if(!defined('FLOWPLAYER_COMMERCIAL')){
-			define('FLOWPLAYER_COMMERCIAL',flowplayer::plugin_url().'/flowplayer/commercial/flowplayer.commercial-3.1.1.swf');
+			define('FLOWPLAYER_COMMERCIAL',flowplayer::plugin_url().'/flowplayer/commercial/flowplayer.commercial-3.1.5.swf');
 		}
 		return FLOWPLAYER_COMMERCIAL;
 	}
 	
 	function gpl_url(){
 		if(!defined('FLOWPLAYER_GPL')){
-			define('FLOWPLAYER_GPL',flowplayer::plugin_url().'/flowplayer/gpl/flowplayer-3.1.1.swf');
+			define('FLOWPLAYER_GPL',flowplayer::plugin_url().'/flowplayer/gpl/flowplayer-3.1.5.swf');
 		}
 		
 		return FLOWPLAYER_GPL;
@@ -109,8 +109,8 @@ class flowplayer {
 		if(!defined('FLOWPLAYER_HEAD')){
 			$html = "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript Start -->\n";
 			$html .= "\n".'<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>';
-			$html .= "\n".'<script type="text/javascript">WPFP = jQuery.noConflict(); $ = WPFP; </script>';
-			$html .= '<script type="text/javascript" src="'.flowplayer::plugin_url().'/flowplayer/flowplayer-3.1.1.min.js"></script>';
+			$html .= "\n".'<script type="text/javascript">WPFP = jQuery.noConflict();/script>';
+			$html .= '<script type="text/javascript" src="'.flowplayer::plugin_url().'/flowplayer/flowplayer-3.1.4.min.js"></script>';
  			$html .= "\n<!-- Saiweb.co.uk Flowplayer For Wordpress Javascript END -->\n";
 			define('FLOWPLAYER_HEAD', $html);	
 		}		
@@ -122,11 +122,11 @@ class flowplayer {
 		if(!defined('FLOWPLAYER_ADMIN_HEAD')){
 			$html = "\n<!-- Saiweb.co.uk Flowplayer For Wordpress ADMIN Javascript Start -->\n";
 			$html .= "\n".'<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>';	
- 			$html .= "\n".'<script type="text/javascript">WPFP = jQuery.noConflict(); $ = WPFP; </script>';
+ 			$html .= "\n".'<script type="text/javascript">WPFP = jQuery.noConflict();</script>';
  			$html .= "\n".'<script type="text/javascript" src="'.flowplayer::plugin_url().'/js/farbtastic/farbtastic.js"></script>';
  			$html .= "\n".'<script src="http://svn.saiweb.co.uk/branches/jquery_plugin/tags/latest/jquery.saiweb.min.js" type="text/javascript"></script>';
  			$html .= "\n".'<link rel="stylesheet" href="'.flowplayer::plugin_url().'/js/farbtastic/farbtastic.css" type="text/css" />';
- 			$html .= '<script type="text/javascript" src="'.flowplayer::plugin_url().'/flowplayer/flowplayer-3.1.1.min.js"></script>';
+ 			$html .= '<script type="text/javascript" src="'.flowplayer::plugin_url().'/flowplayer/flowplayer-3.1.4.min.js"></script>';
  			$html .= "\n<!-- Saiweb.co.uk Flowplayer For Wordpress ADMIN Javascript END -->\n";
  			$html .= flowplayer::player_head();
 			define('FLOWPLAYER_ADMIN_HEAD',$html);
