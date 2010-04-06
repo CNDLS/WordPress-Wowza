@@ -2,7 +2,7 @@
 // Farbtastic 1.2
 
 jQuery.fn.farbtastic = function (callback) {
-  $.farbtastic(this, callback);
+  jQuery.farbtastic(this, callback);
   return this;
 };
 
