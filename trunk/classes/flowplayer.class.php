@@ -3,10 +3,13 @@
 /**
  * FlowPlayer for Wordpress
  * ©2008,2009 David Busby
- * @see license.tct GPLv3
+ * @see license.txt GPLv3
  */
 class flowplayer {
 	
+	/**
+	 * Statup function, sets up defines
+	 **/
 	function setup(){
 		global $post;
 		
@@ -33,6 +36,7 @@ class flowplayer {
 		);
 		return $ret;
 	}
+	
 	function commercial_url(){
 		if(!defined('FLOWPLAYER_COMMERCIAL')){
 			define('FLOWPLAYER_COMMERCIAL',flowplayer::plugin_url().'/flowplayer/commercial/flowplayer.commercial-3.1.5.swf');
@@ -61,7 +65,7 @@ class flowplayer {
 	
 	function plugin_url(){
 		if(!defined('PLUGIN_URL')){
-			define('PLUGIN_URL',get_option('siteurl').'/wp-content/plugins/word-press-flow-player');
+			define('PLUGIN_URL',get_option('siteurl').plugin_dir_url(__FILE__));
 		}	
 		return PLUGIN_URL;
 	}
