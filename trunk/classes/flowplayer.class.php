@@ -136,24 +136,26 @@ class flowplayer {
  			$html .= '
  			<script type="text/javascript">
  				jQuery(document).ready(function(){
- 				var tgt = $(":input[name=tgt]:checked").val();
-				tgtArr = tgt.split(\'_\');
-				$(":input[name="+tgt+"]").keyup(function(){
-					var player = $f("player");
-					if (player.isLoaded()) {						
+ 					$(":input[name=tgt]").click(function(){
+ 						var tgt = $(":input[name=tgt]:checked").val();
+						tgtArr = tgt.split(\'_\');
+						$(":input[name="+tgt+"]").keyup(function(){
+							var player = $f("player");
+							if (player.isLoaded()) {						
 
-						// adjust canvas bgcolor. uses undocumented API call. not stabilized yet
-						if (tgtArr[1] == \'canvas\') {					
-							player._api().fp_css("canvas", {backgroundColor:$(this).val()});
-							console.log(\'canvas: \'+$(this).val());
-						// adjust controlbar coloring
-						} else {
-							window.canvasColor = $(this).val();
-							console.log(tgtArr[1]+\': \'+$(this).val());
-							player.getControls().css(tgtArr[1], $(this).val());
-						}
-					}
-				});
+								// adjust canvas bgcolor. uses undocumented API call. not stabilized yet
+								if (tgtArr[1] == \'canvas\') {					
+									player._api().fp_css("canvas", {backgroundColor:$(this).val()});
+									console.log(\'canvas: \'+$(this).val());
+								// adjust controlbar coloring
+								} else {
+									window.canvasColor = $(this).val();
+									console.log(tgtArr[1]+\': \'+$(this).val());
+									player.getControls().css(tgtArr[1], $(this).val());
+								}
+							}
+						});
+ 					});
  				});
  			</script>
  			
