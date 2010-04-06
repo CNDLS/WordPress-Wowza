@@ -139,6 +139,7 @@ class flowplayer {
  					$(":input[name=tgt]").click(function(){
  						var tgt = $(":input[name=tgt]:checked").val();
 						tgtArr = tgt.split(\'_\');
+						$(\'#colourpicker\').farbtastic.setColor($(":input[name="+tgt+"]").val());
 						$(":input[name="+tgt+"]").keyup(function(){
 							var player = $f("player");
 							if (player.isLoaded()) {						
