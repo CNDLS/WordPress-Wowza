@@ -135,6 +135,7 @@ class flowplayer {
  			$html .= '<script type="text/javascript" src="'.flowplayer::plugin_url().'/flowplayer/flowplayer-3.1.4.min.js"></script>';
  			$html .= '
  			<script type="text/javascript">
+ 				jQuery(document).ready(function(){
  				var tgt = $(":input[name=tgt]:checked").val();
 				tgtArr = tgt.split(\'_\');
 				$(":input[name="+tgt+"]").keyup(function(){
@@ -153,7 +154,7 @@ class flowplayer {
 						}
 					}
 				});
- 				
+ 				});
  			</script>
  			
  			';
@@ -188,14 +189,14 @@ class flowplayer {
 	function flowplayer_colours(){
 		$html ='<ul>
 		<li><input disabled type="radio" name="tgt" value="flowplayer_backgroundColor" checked /><input type="text" size="7" name="flowplayer_backgroundColor" value="'.flowplayer::_getbackgroundColor().'" /> controlbar</li>		
-		<li><input disabled type="radio" name="tgt" value="flowplayer_canvas" /><input type="text" name="flowplayer_canvas" value="'.flowplayer::_getcanvas().'" /> canvas</li>
-		<li><input disabled type="radio" name="tgt" value="flowplayer_sliderColor" /><input type="text" name="flowplayer_sliderColor" value="'.flowplayer::_getsliderColor().'" /> sliders</li>
-		<li><input disabled type="radio" name="tgt" value="flowplayer_buttonColor" /><input type="text" name="flowplayer_buttonColor" value="'.flowplayer::_getbuttonColor().'" /> buttons</li>
-		<li><input disabled type="radio" name="tgt" value="flowplayer_buttonOverColor" /><input type="text" name="flowplayer_buttonOverColor" value="'.flowplayer::_getbuttonOverColor().'" /> mouseover</li>
-		<li><input disabled type="radio" name="tgt" value="flowplayer_durationColor" /><input type="text" name="flowplayer_durationColor" value="'.flowplayer::_getdurationColor().'" /> total time</li>
-		<li><input disabled type="radio" name="tgt" value="flowplayer_timeColor" /><input type="text" name="flowplayer_timeColor" value="'.flowplayer::_gettimeColor().'" /> time</li>
-		<li><input disabled type="radio" name="tgt" value="flowplayer_progressColor" /><input type="text" name="flowplayer_progressColor" value="'.flowplayer::_getprogressColor().'" /> progress</li>
-		<li><input disabled type="radio" name="tgt" value="flowplayer_bufferColor" /><input type="text" name="flowplayer_bufferColor" value="'.flowplayer::_getbufferColor().'" /> buffer</li>
+		<li><input disabled type="radio" name="tgt" value="flowplayer_canvas" /><input type="text" size="7" name="flowplayer_canvas" value="'.flowplayer::_getcanvas().'" /> canvas</li>
+		<li><input disabled type="radio" name="tgt" value="flowplayer_sliderColor" /><input type="text" size="7" name="flowplayer_sliderColor" value="'.flowplayer::_getsliderColor().'" /> sliders</li>
+		<li><input disabled type="radio" name="tgt" value="flowplayer_buttonColor" /><input type="text" size="7" name="flowplayer_buttonColor" value="'.flowplayer::_getbuttonColor().'" /> buttons</li>
+		<li><input disabled type="radio" name="tgt" value="flowplayer_buttonOverColor" /><input type="text" size="7" name="flowplayer_buttonOverColor" value="'.flowplayer::_getbuttonOverColor().'" /> mouseover</li>
+		<li><input disabled type="radio" name="tgt" value="flowplayer_durationColor" /><input type="text" size="7" name="flowplayer_durationColor" value="'.flowplayer::_getdurationColor().'" /> total time</li>
+		<li><input disabled type="radio" name="tgt" value="flowplayer_timeColor" /><input type="text" size="7" name="flowplayer_timeColor" value="'.flowplayer::_gettimeColor().'" /> time</li>
+		<li><input disabled type="radio" name="tgt" value="flowplayer_progressColor" /><input type="text" size="7" name="flowplayer_progressColor" value="'.flowplayer::_getprogressColor().'" /> progress</li>
+		<li><input disabled type="radio" name="tgt" value="flowplayer_bufferColor" /><input type="text" size="7" name="flowplayer_bufferColor" value="'.flowplayer::_getbufferColor().'" /> buffer</li>
 		</ul>
 		';
 		
