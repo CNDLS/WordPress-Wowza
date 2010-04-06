@@ -141,17 +141,16 @@ class flowplayer {
 						tgtArr = tgt.split(\'_\');
 						$.farbtastic(\'#colourpicker\').setColor($(":input[name="+tgt+"]").val());
 						$(":input[name="+tgt+"]").keyup(function(){
+							$.farbtastic(\'#colourpicker\').setColor($(":input[name="+tgt+"]").val());
 							var player = $f("player");
 							if (player.isLoaded()) {						
 
 								// adjust canvas bgcolor. uses undocumented API call. not stabilized yet
 								if (tgtArr[1] == \'canvas\') {					
 									player._api().fp_css("canvas", {backgroundColor:$(this).val()});
-									console.log(\'canvas: \'+$(this).val());
 								// adjust controlbar coloring
 								} else {
 									window.canvasColor = $(this).val();
-									console.log(tgtArr[1]+\': \'+$(this).val());
 									player.getControls().css(tgtArr[1], $(this).val());
 								}
 							}
