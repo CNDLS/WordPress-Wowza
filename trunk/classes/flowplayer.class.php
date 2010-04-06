@@ -332,7 +332,6 @@ $html .= '
 							<tr>
 								<td><div id="colourpicker"></div></td>
 								<td>
-									<strong>NOTE: the wheel will only render complete hex codex, not short codes. (i.e. #123456)
 									'.flowplayer::flowplayer_colours().'
 								</td>
 							</tr>
