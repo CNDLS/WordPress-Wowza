@@ -141,15 +141,16 @@ class flowplayer {
 					var player = $f("player");
 					if (player.isLoaded()) {						
 
-					// adjust canvas bgcolor. uses undocumented API call. not stabilized yet
-					if (tgtArr[1] == \'canvas\') {					
-						player._api().fp_css("canvas", {backgroundColor:$(this).value()});
-						console.log(\'canvas: \'+$(this).value());
-					// adjust controlbar coloring
-					} else {
-						window.canvasColor = $(this).value();
-						console.log(tgtArr[1]+\': \'+$(this).value());
-						player.getControls().css(tgtArr[1], $(this).value());
+						// adjust canvas bgcolor. uses undocumented API call. not stabilized yet
+						if (tgtArr[1] == \'canvas\') {					
+							player._api().fp_css("canvas", {backgroundColor:$(this).value()});
+							console.log(\'canvas: \'+$(this).value());
+						// adjust controlbar coloring
+						} else {
+							window.canvasColor = $(this).value();
+							console.log(tgtArr[1]+\': \'+$(this).value());
+							player.getControls().css(tgtArr[1], $(this).value());
+						}
 					}
 				});
  				
