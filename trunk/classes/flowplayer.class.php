@@ -65,7 +65,9 @@ class flowplayer {
 	
 	function plugin_url(){
 		if(!defined('PLUGIN_URL')){
-			define('PLUGIN_URL',plugin_dir_url(realpath(dirname(__FILE__).'../')));
+			$cwd = realpath(dirname(__FILE__).'../');
+			$plugin_url = str_replace($_SERVER['DOCUMENT_ROOT'],'',$cwd);
+			define('PLUGIN_URL',$plugin_url);
 		}	
 		return PLUGIN_URL;
 	}
