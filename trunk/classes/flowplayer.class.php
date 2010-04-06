@@ -198,16 +198,16 @@ class flowplayer {
 		$f("player", "'.(flowplayer::_getkey()?flowplayer::commercial_url():flowplayer::gpl_url()).'", {
 				plugins: {
   					 controls: {    					
-      					buttonOverColor: \''.flowplayer::_getbuttonOverColor().'\',
-      					sliderColor: \''.flowplayer::_getsliderColor().'\',
-      					bufferColor: \''.flowplayer::_getbufferColor().'\',
+      					'.(flowplayer::_getbuttonOverColor()!=''?'buttonOverColor: \''.flowplayer::_getbuttonOverColor().'\',':'').'
+      					'.(flowplayer::_getsliderColor()!=''?'sliderColor: \''.flowplayer::_getsliderColor().'\',':'').'
+      					'.(flowplayer::_getbufferColor()!=''?'bufferColor: \''.flowplayer::_getbufferColor().'\',':'').'
       					sliderGradient: \'none\',
       					progressGradient: \'medium\',
-      					durationColor: \''.flowplayer::_getdurationColor().'\',
-      					progressColor: \''.flowplayer::_getprogressColor().'\',
-      					backgroundColor: \''.flowplayer::_getbackgroundColor().'\',
-      					timeColor: \''.flowplayer::_gettimeColor().'\',
-      					buttonColor: \''.flowplayer::_getbuttonColor().'\',
+      					'.(flowplayer::_getdurationColor()!=''?'durationColor: \''.flowplayer::_getdurationColor().'\',':'').'
+      					'.(flowplayer::_getprogressColor()!=''?'progressColor: \''.flowplayer::_getprogressColor().'\',':'').'
+      					'.(flowplayer::_getbackgroundColor()!=''?'backgroundColor: \''.flowplayer::_getbackgroundColor().'\',':'').'
+      					'.(flowplayer::_gettimeColor()!=''?'timeColor: \''.flowplayer::_gettimeColor().'\',':'').'
+      					'.(flowplayer::_getbuttonColor()!=''?'buttonColor: \''.flowplayer::_getbuttonColor().'\',':'').'
       					backgroundGradient: \'none\',
       					bufferGradient: \'none\',
    						opacity:1.0
@@ -377,16 +377,16 @@ $html .= '
 		$f("saiweb_'.$hash.'", "'.(flowplayer::_getkey()?flowplayer::commercial_url():flowplayer::gpl_url()).'", {
 				plugins: {
   					 controls: {    					
-      					buttonOverColor: \''.flowplayer::_getbuttonOverColor().'\',
-      					sliderColor: \''.flowplayer::_getsliderColor().'\',
-      					bufferColor: \''.flowplayer::_getbufferColor().'\',
+      					'.(flowplayer::_getbuttonOverColor()!=''?'buttonOverColor: \''.flowplayer::_getbuttonOverColor().'\',':'').'
+      					'.(flowplayer::_getsliderColor()!=''?'sliderColor: \''.flowplayer::_getsliderColor().'\',':'').'
+      					'.(flowplayer::_getbufferColor()!=''?'bufferColor: \''.flowplayer::_getbufferColor().'\',':'').'
       					sliderGradient: \'none\',
       					progressGradient: \'medium\',
-      					durationColor: \''.flowplayer::_getdurationColor().'\',
-      					progressColor: \''.flowplayer::_getprogressColor().'\',
-      					backgroundColor: \''.flowplayer::_getbackgroundColor().'\',
-      					timeColor: \''.flowplayer::_gettimeColor().'\',
-      					buttonColor: \''.flowplayer::_getbuttonColor().'\',
+      					'.(flowplayer::_getdurationColor()!=''?'durationColor: \''.flowplayer::_getdurationColor().'\',':'').'
+      					'.(flowplayer::_getprogressColor()!=''?'progressColor: \''.flowplayer::_getprogressColor().'\',':'').'
+      					'.(flowplayer::_getbackgroundColor()!=''?'backgroundColor: \''.flowplayer::_getbackgroundColor().'\',':'').'
+      					'.(flowplayer::_gettimeColor()!=''?'timeColor: \''.flowplayer::_gettimeColor().'\',':'').'
+      					'.(flowplayer::_getbuttonColor()!=''?'buttonColor: \''.flowplayer::_getbuttonColor().'\',':'').'
       					backgroundGradient: \'none\',
       					bufferGradient: \'none\',
    						opacity:1.0
