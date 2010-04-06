@@ -139,7 +139,7 @@ class flowplayer {
  					$(":input[name=tgt]").click(function(){
  						var tgt = $(":input[name=tgt]:checked").val();
 						tgtArr = tgt.split(\'_\');
-						$(\'#colourpicker\').farbtastic.setColor($(":input[name="+tgt+"]").val());
+						$.farbtastic(\'#colourpicker\').setColor($(":input[name="+tgt+"]").val());
 						$(":input[name="+tgt+"]").keyup(function(){
 							var player = $f("player");
 							if (player.isLoaded()) {						
@@ -333,6 +333,7 @@ $html .= '
 							<tr>
 								<td><div id="colourpicker"></div></td>
 								<td>
+									<strong>NOTE: the wheel will only render complete hex codex, not short codes. (i.e. #123456)
 									'.flowplayer::flowplayer_colours().'
 								</td>
 							</tr>
