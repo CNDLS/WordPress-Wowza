@@ -148,7 +148,7 @@ class flowplayer {
 							console.log(\'canvas: \'+$(this).val());
 						// adjust controlbar coloring
 						} else {
-							window.canvasColor = $(this).value();
+							window.canvasColor = $(this).val();
 							console.log(tgtArr[1]+\': \'+$(this).val());
 							player.getControls().css(tgtArr[1], $(this).val());
 						}
