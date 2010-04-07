@@ -413,15 +413,18 @@ $html .= '
 				},';
 				
 	if(count($list) > 1){
-		$html .= '
-			clip: {
-					autoPlay: '.(flowplayer::_getautoplay()=='true'?'true':'false').',
-       				autoBuffering: '.(flowplayer::_getautobuffer()=='true'?'true':'false').'
-				},';
+		
+				
 		//splash image code, adapted from user contributed code from James P
 		$iRegex = '/\.(jpe?g|gif|png)$/';
 		$splash = (preg_match($iRegex,$list[0]) && !preg_match($iRegex,$list[1]));
 		
+		$html .= '
+			clip: {
+					autoPlay: '.($splash==true?'true':(flowplayer::_getautoplay()=='true'?'true':'false')).',
+       				autoBuffering: '.(flowplayer::_getautobuffer()=='true'?'true':'false').'
+				},';
+				
 		$html .= 'playlist:[
 				 
 				';
