@@ -156,6 +156,7 @@ class flowplayer {
 							}
 						});
  					});
+ 					$(":input[name=tgt]").click();
  				});
  			</script>
  			
