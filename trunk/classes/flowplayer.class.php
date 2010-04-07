@@ -419,15 +419,8 @@ $html .= '
        				autoBuffering: '.(flowplayer::_getautobuffer()=='true'?'true':'false').'
 				},';
 		//splash image code, adapted from user contributed code from James P
-		$m=array();
-		//get extension of item 1
-		preg_match('/\.([^\.]+)$/',$list[0],$m);
-		$ext1 	= strtolower($m[1]);
-		//get extension of item 2
-		preg_match('/\.([^\.]+)$/',$list[1],$m);
-		$ext2 	= strtolower($m[1]);
 		$iRegex = '/\.(jpe?g|gif|png)$/';
-		$splash = (preg_match($iRegex,$ext1) && !preg_match($iRegex,$ext2));
+		$splash = (preg_match($iRegex,$list[0]) && !preg_match($iRegex,$list[1]));
 		
 		$html .= 'playlist:[
 				 
