@@ -435,10 +435,10 @@ $html .= '
 					} else {
 						if($i == 0){
 							//this is the splash image
-							$html .= '{url: \''.$item.'\', autoplay: true},'."\n";
+							$html .= '{url: \''.$item.'\', autoPlay: true},'."\n";
 						} else {
 							//next items are not the splash image
-							$html .= '{url: \''.$item.'\', autoplay: false},'."\n";
+							$html .= '{url: \''.$item.'\', autoPlay: false},'."\n";
 						}
 					}
 					$i++;
