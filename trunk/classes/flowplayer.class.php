@@ -426,7 +426,7 @@ $html .= '
 		//get extension of item 2
 		preg_match('/\.([^\.])+$/',$list[1],$m);
 		$ext2 	= strtolower($m[1]);
-		$iRegex = '/\.(jpe?g|gif|png)$/'
+		$iRegex = '/\.(jpe?g|gif|png)$/';
 		$splash = (preg_match($iRegex,$ext1) && !(preg_match($iRegex,$ext2));
 		
 		$html .= 'playlist:[
