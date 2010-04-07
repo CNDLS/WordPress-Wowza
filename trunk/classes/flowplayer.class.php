@@ -136,7 +136,7 @@ class flowplayer {
  			$html .= '
  			<script type="text/javascript">
  				jQuery(document).ready(function(){
- 					$(":input[name=tgt]").click(function(){
+ 					function _regKeyup(){
  						var tgt = $(":input[name=tgt]:checked").val();
 						tgtArr = tgt.split(\'_\');
 						$.farbtastic(\'#colourpicker\').setColor($(":input[name="+tgt+"]").val());
@@ -155,7 +155,11 @@ class flowplayer {
 								}
 							}
 						});
+ 					}
+ 					$(":input[name=tgt]").click(function(){
+ 						_regKeyup();
  					});
+ 					_regKeyup()
  				});
  			</script>
  			
@@ -207,7 +211,7 @@ class flowplayer {
 	
 	function flowplayer_settings(){
 		$html = '
-					<script language="Javascript" type="text/javascript">
+					<script type="text/javascript">
 	WPFP(document).ready(function() {
 		//load player
 		$f("player", "'.(flowplayer::_getkey()?flowplayer::commercial_url():flowplayer::gpl_url()).'", {
@@ -414,11 +418,34 @@ $html .= '
 					autoPlay: '.(flowplayer::_getautoplay()=='true'?'true':'false').',
        				autoBuffering: '.(flowplayer::_getautobuffer()=='true'?'true':'false').'
 				},';
+		//splash image code, adapted from user contributed code from James P
+		$m=array();
+		//get extension of item 1
+		preg_match('/\.([^\.])+$/',$list[0],$m);
+		$ext1 	= strtolower($m[1]);
+		//get extension of item 2
+		preg_match('/\.([^\.])+$/',$list[1],$m);
+		$ext2 	= strtolower($m[1]);
+		$iRegex = '/\.(jpe?g|gif|png)$/'
+		$splash = (preg_match($iRegex,$ext1) && !(preg_match($iRegex,$ext2));
+		
 		$html .= 'playlist:[
 				 
 				';
+				$i = 0;
 				foreach($list as $item){
-					$html .= '{url: \''.$item.'\'},'."\n";
+					if(!$splash){
+						$html .= '{url: \''.$item.'\'},'."\n";
+					} else {
+						if($i == 0){
+							//this is the splash image
+							$html .= '{url: \''.$item.'\', autoplay: true},'."\n";
+						} else {
+							//next items are not the splash image
+							$html .= '{url: \''.$item.'\', autoplay: false},'."\n";
+						}
+					}
+					$i++;
 				}
 				$html .= '],'."\n";
 	} else {
