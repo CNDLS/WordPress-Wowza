@@ -159,7 +159,6 @@ class flowplayer {
  					$(":input[name=tgt]").click(function(){
  						_regKeyup();
  					});
- 					_regKeyup()
  				});
  			</script>
  			
@@ -389,7 +388,7 @@ $html .= '
 			 */
 			$list = explode('|',$media);
 			$hash = md5($media.flowplayer::_salt());
-			$html = '<div id="saiweb_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;"></div>';
+			$html = '<div id="saiweb_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;" class="flowplayer"></div>';
 			$html .= '<script language="Javascript" type="text/javascript">
 	WPFP(document).ready(function() {
 		//load player
