@@ -45,3 +45,4 @@ As this project is GPL v3, please contribute to it your code changes as follows.
 4. Push to the branch (`git push origin my_markup`)
 5. Create an [Issue][1] with a link to your branch
 
+[1]: https://github.com/Oneiroi/wordpress-flowplayer/issues
