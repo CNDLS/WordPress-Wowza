@@ -4,19 +4,19 @@ ndex: flowplayer.class.php
 +++ flowplayer.class.php	(working copy)
 @@ -365,7 +365,8 @@
  			$list = explode('|',$media);
- 			$hash = md5($media.flowplayer::_salt());
+ 			$hash = md5($media.wowza::_salt());
  			$html = '<div id="saiweb_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;"></div>';
 -			$html .= '<script language="Javascript" type="text/javascript">
 +			$html .= '<script type="text/javascript">
 +<!--
  	WPFP(document).ready(function() {
  		//load player
- 		$f("saiweb_'.$hash.'", "'.(flowplayer::_getkey()?flowplayer::commercial_url():flowplayer::gpl_url()).'", {
+ 		$f("saiweb_'.$hash.'", "'.(wowza::_getkey()?wowza::commercial_url():wowza::gpl_url()).'", {
 @@ -388,17 +389,29 @@
  				},';
  				
  	if(count($list) > 1){
-+		$auto_play=('true'==flowplayer::_getautoplay());
++		$auto_play=('true'==wowza::_getautoplay());
 +		$m=array();
 +		preg_match('/\.([^\.]*)$/', $list[0], $m);
 +		$extension_0=strtolower($m[1]);
@@ -27,9 +27,9 @@ ndex: flowplayer.class.php
 +		if($has_preview_image) $auto_play=true;
  		$html .= '
  			clip: {
--					autoPlay: '.(flowplayer::_getautoplay()=='true'?'true':'false').',
+-					autoPlay: '.(wowza::_getautoplay()=='true'?'true':'false').',
 +					autoPlay: '.($auto_play?'true':'false').',
-        				autoBuffering: '.(flowplayer::_getautobuffer()=='true'?'true':'false').'
+        				autoBuffering: '.(wowza::_getautobuffer()=='true'?'true':'false').'
  				},';
  		$html .= 'playlist:[
  				 
@@ -46,7 +46,7 @@ ndex: flowplayer.class.php
  			$html .= '
 @@ -422,7 +435,9 @@
  				canvas: {
- 					backgroundColor:\''.flowplayer::_getcanvas().'\'
+ 					backgroundColor:\''.wowza::_getcanvas().'\'
  				}})
 -			});</script>
 +			});

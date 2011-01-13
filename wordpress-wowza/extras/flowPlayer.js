@@ -410,7 +410,7 @@
 	/*
 	 * Name of the authentication code file name that is used to prevent inline linking
 	 * of video and image files. This can be a complete URL or just a file name relative
-	 * to the location from where the player is loaded. (optional, defaults to flowplayer_auth.txt)
+	 * to the location from where the player is loaded. (optional, defaults to wowza_auth.txt)
 	 */
 //	authFileName: 'http://www.mytube.org/authCode.txt',
 
