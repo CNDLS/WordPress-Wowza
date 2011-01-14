@@ -105,7 +105,29 @@ class wowza {
 	// directory in <wowza>/content where our assets will live.
 	function _getdirectory(){ return get_option('wowza_directory');}
 	function _setdirectory($val){update_option('wowza_directory',$val);}
-	function _getdirectoryListing(){ return '';}
+	function _getdirectoryListing(){ 
+	  $curl = curl_init();
+    curl_setopt ($curl, CURLOPT_URL, "uis-cndls-3.georgetown.edu/wowza-content-list?dir=".get_option('wowza_directory'));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $result = nl2br(curl_exec ($curl));
+    curl_close ($curl);
+    
+    return $result;
+  }
+  function _uploadcontent($val){
+	  $curl = curl_init();
+	  curl_setopt ($curl, CURLOPT_FTPPORT, 22);
+    curl_setopt ($curl, CURLOPT_URL, "uis-cndls-3.georgetown.edu/wowza-content-list?dir=".get_option('wowza_directory'));
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $val);
+    curl_setopt($curl, CURLOPT_USERPWD, "evansp:evanspat");
+    curl_setopt($curl, CURLOPT_FILE, "test");
+    #curl -v --ftp-ssl -u <uname>:'<passwd>' --header expect: 141.161.61.192:22/home/wjg8/billo.txt -T billo.txt
+    $result = curl_exec ($curl);
+    curl_close ($curl);
+    
+    return $result;
+  }
 	
 	function get_nonce(){
 		if(!defined('WOWZA_NONCE')){
@@ -195,11 +217,12 @@ class wowza {
 	}
 	
 	function wowza_storage(){
-		$html ='<h3>Manage Your Wowza Content</h3>
+		$html ='<form id="wpww_storage_options" method="post">
+		<h3>Manage Your Wowza content</h3>
     <table>
     	<tr>
       	<td>Wowza Content Directory:</td>
-      	<td><input type="text" size="20" name="wowza_directory">'.wowza::_getdirectory().'</input></td>
+      	<td><input type="text" size="20" name="wowza_directory" value="'.wowza::_getdirectory().'"></input></td>
       </tr>
       <tr>
       	<td>Streamable Files:</td>
@@ -208,8 +231,16 @@ class wowza {
       <tr>
       	<td>Upload New File for Streaming:</td>
       	<td><input type="file" id="newstream" name="newstream"></input></td>
-      </tr>
-    </table>';
+      </tr>  
+				<tr>
+					<td>&nbsp;</td>
+					<td>
+						<input type="submit" name="submit" class="button-primary" value="Save Changes" />
+					</td>
+				</tr>
+			</table>
+			<input type="hidden" name="wowza_noncename" id="wowza_noncename" value="'.wowza::get_nonce().'" />
+			</form>';
 		
 		return $html;
 	}
@@ -307,11 +338,12 @@ $html .= '
 	});
 </script>
 						<div class="wrap">
-						<form id="wpww_options" method="post">
 						<div id="icon-options-general" class="icon32"><br></div>
 						<h2>Wowza for Wordpress</h2>
 						';
-						$html .= wowza::wowza_storage().'<h3>Please set your default player options below</h3>
+						$html .= wowza::wowza_storage().'
+						<form id="wpww_flowplayer_options" method="post">
+						<h3>Set Flowplayer display options</h3>
 						<table>
 							<tr>
 								<td>AutoPlay: </td>

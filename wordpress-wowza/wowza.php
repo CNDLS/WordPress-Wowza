@@ -152,6 +152,7 @@ function wowza_settings(){
 		wowza::_setlogolink($_POST['wowza_logolink']);
     // directory in <wowza>/content where our assets will live.
 		wowza::_setdirectory($_POST['wowza_directory']);
+		wowza::_uploadcontent($_POST['wowza_directory']);
   	}
  
   	echo 	wowza::wowza_settings();

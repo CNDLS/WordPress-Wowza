@@ -1,0 +1,29 @@
+
+#!/usr/bin/perl
+
+use strict;
+use CGI;
+use File::Find;
+
+our $TARGET_DIR = "/usr/local/WowzaMediaServer/content/";
+
+our $TARGET_DIR_LENGTH = length($TARGET_DIR);
+
+my $findOptionsRef = {
+  'wanted' => \&fileHandler,
+  'follow' => 1,
+};
+
+
+my $cgi = CGI->new();
+print $cgi->header(-type=>'text/plain');
+
+find($findOptionsRef, $TARGET_DIR);
+
+sub fileHandler {
+  next if  ($_ eq "." || $_ eq ".." || $_ eq "");
+  next if -d $_;
+  print substr($File::Find::name, $TARGET_DIR_LENGTH) . "\n";
+}
+
+wowzatest:yi3LoxLguXYfg
